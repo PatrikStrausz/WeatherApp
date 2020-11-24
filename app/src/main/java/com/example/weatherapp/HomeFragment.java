@@ -121,16 +121,27 @@ public class HomeFragment extends Fragment {
     private ImageView seventhHourImage;
 
 
+ private WeatherResult weatherResult;
 
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+
+
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+
 
 
 

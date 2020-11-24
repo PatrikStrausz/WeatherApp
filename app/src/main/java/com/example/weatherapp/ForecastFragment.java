@@ -67,6 +67,7 @@ public class ForecastFragment extends Fragment implements Serializable{
     private ImageView sixthImage;
 
     private MaterialCardView cardView;
+    private MaterialCardView secondCardView;
 
    private WeatherResult weatherResult;
 
@@ -105,6 +106,12 @@ public class ForecastFragment extends Fragment implements Serializable{
         sixthImage = view.findViewById(R.id.sixthImageView);
 
         cardView = view.findViewById(R.id.cardView);
+        secondCardView = view.findViewById(R.id.secondCardView);
+
+
+
+
+
 
 
 
@@ -114,7 +121,23 @@ public class ForecastFragment extends Fragment implements Serializable{
             public void onClick(View v) {
                Intent intent = new Intent(getActivity(), ForecastDetail.class);
                Log.d("Response", weatherResult.getCityObject().getName());
-               intent.putExtra("Response",weatherResult);
+               Bundle bundle = new Bundle();
+               bundle.putSerializable("Response", weatherResult);
+               bundle.putInt("Index", 0);
+               intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        secondCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ForecastDetail.class);
+                Log.d("Response", weatherResult.getCityObject().getName());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Response", weatherResult);
+                bundle.putInt("Index", 8);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -123,6 +146,7 @@ public class ForecastFragment extends Fragment implements Serializable{
 
         return view;
     }
+    
 
 
     void getForecast() {

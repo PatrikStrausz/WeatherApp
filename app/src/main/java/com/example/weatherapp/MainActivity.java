@@ -2,7 +2,9 @@ package com.example.weatherapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.weatherapp.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +19,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -25,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     final Fragment fragment3 = new SettingsFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
+
+
    private BottomNavigationView navView;
 
     @Override
@@ -40,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.container,fragment1, "1").commit();
+
+
+
+
+
+
     }
 
 
@@ -67,5 +83,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+
 
 }
