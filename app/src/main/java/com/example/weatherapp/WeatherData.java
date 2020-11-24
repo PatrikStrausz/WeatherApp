@@ -2,7 +2,9 @@ package com.example.weatherapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class WeatherData {
+import java.io.Serializable;
+
+public class WeatherData implements Serializable {
 
     @SerializedName("id")
     private int id;

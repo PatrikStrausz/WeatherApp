@@ -66,12 +66,14 @@ public class HomeFragment extends Fragment {
     private TextView thirdTemp;
     private TextView fourthTemp;
     private TextView fifthTemp;
+    private TextView sixthTemp;
 
     private TextView firstDateTxtView;
     private TextView secondDateTxtView;
     private TextView thirdDateTxtView;
     private TextView fouthDateTxtView;
     private TextView fifthDateTxtView;
+    private TextView sixthDateTxtView;
 
     private TextView windSpeedTextView;
     private TextView feelsLikeTextView;
@@ -108,6 +110,7 @@ public class HomeFragment extends Fragment {
     private ImageView thirdImageView;
     private ImageView fourthImageView;
     private ImageView fifthImageView;
+    private ImageView sixthImageView;
 
     private ImageView firstHourImage;
     private ImageView secondHourImage;
@@ -143,6 +146,7 @@ public class HomeFragment extends Fragment {
         thirdDateTxtView = view.findViewById(R.id.thirdDateTxtView);
         fouthDateTxtView = view.findViewById(R.id.fourthDateTxtView);
         fifthDateTxtView = view.findViewById(R.id.fifthDateTxtView);
+        sixthDateTxtView = view.findViewById(R.id.sixthDateTxtView);
 
         linearLayout = view.findViewById(R.id.linearLayout);
 
@@ -151,6 +155,7 @@ public class HomeFragment extends Fragment {
         thirdTemp = view.findViewById(R.id.thirdTemp);
         fourthTemp = view.findViewById(R.id.fourthTemp);
         fifthTemp = view.findViewById(R.id.fifthTemp);
+        sixthTemp = view.findViewById(R.id.sixthTemp);
 
         editText = view.findViewById(R.id.editText);
 
@@ -161,6 +166,7 @@ public class HomeFragment extends Fragment {
         thirdImageView = view.findViewById(R.id.thirdImageView);
         fourthImageView = view.findViewById(R.id.fourthImageView);
         fifthImageView = view.findViewById(R.id.fifthImageView);
+        sixthImageView = view.findViewById(R.id.sixthImageView);
 
         windSpeedTextView    = view.findViewById(R.id.windSpeedTextView);
         feelsLikeTextView    = view.findViewById(R.id.feelsLikeTextView) ;
@@ -303,6 +309,7 @@ public class HomeFragment extends Fragment {
                     setImage(thirdImageView, weatherResponse.getList().get(16).getWeatherList().get(0).getIcon());
                     setImage(fourthImageView, weatherResponse.getList().get(24).getWeatherList().get(0).getIcon());
                     setImage(fifthImageView, weatherResponse.getList().get(32).getWeatherList().get(0).getIcon());
+                    setImage(sixthImageView, weatherResponse.getList().get(39).getWeatherList().get(0).getIcon());
 
 
 
@@ -311,6 +318,7 @@ public class HomeFragment extends Fragment {
                     thirdTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(16).getMainList().getTemp_max())) + "°");
                     fourthTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(24).getMainList().getTemp_max())) + "°");
                     fifthTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(32).getMainList().getTemp_max())) + "°");
+                    sixthTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(39).getMainList().getTemp_max())) + "°");
 
 
                     firstDateTxtView.setText(getDay(weatherResponse.getList().get(0).getDt_txt()));
@@ -318,6 +326,7 @@ public class HomeFragment extends Fragment {
                     thirdDateTxtView.setText(getDay(weatherResponse.getList().get(16).getDt_txt()));
                     fouthDateTxtView.setText(getDay(weatherResponse.getList().get(24).getDt_txt()));
                     fifthDateTxtView.setText(getDay(weatherResponse.getList().get(32).getDt_txt()));
+                    sixthDateTxtView.setText(getDay(weatherResponse.getList().get(39).getDt_txt()));
 
 
                     windSpeedTextView    .setText("Wind speed\n"+String.valueOf(+Math.round(weatherResponse.getList().get(0).getWindList().getSpeed()))+"km/h" );

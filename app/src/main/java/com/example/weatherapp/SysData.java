@@ -2,7 +2,9 @@ package com.example.weatherapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SysData {
+import java.io.Serializable;
+
+public class SysData implements Serializable {
 
     @SerializedName("pod")
     private String pod;

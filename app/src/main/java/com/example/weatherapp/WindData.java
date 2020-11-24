@@ -2,26 +2,28 @@ package com.example.weatherapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class WindData {
-    @SerializedName("speed")
-    private double speed;
+import java.io.Serializable;
 
-    @SerializedName("deg")
-    private double deg;
+public class WindData implements Serializable {
+  @SerializedName("speed")
+  private double speed;
 
-    public double getSpeed() {
-        return speed;
-    }
+  @SerializedName("deg")
+  private double deg;
 
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
+  public double getSpeed() {
+    return speed;
+  }
 
-    public double getDeg() {
-        return deg;
-    }
+  public void setSpeed(double speed) {
+    this.speed = speed;
+  }
 
-    public void setDeg(double deg) {
-        this.deg = deg;
-    }
+  public double getDeg() {
+    return deg;
+  }
+
+  public void setDeg(double deg) {
+    this.deg = deg;
+  }
 }

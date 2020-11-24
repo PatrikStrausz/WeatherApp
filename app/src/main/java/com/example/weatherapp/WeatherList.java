@@ -2,10 +2,11 @@ package com.example.weatherapp;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherList {
+public class WeatherList implements Serializable {
     @SerializedName("dt")
     private int dt;
     @SerializedName("main")

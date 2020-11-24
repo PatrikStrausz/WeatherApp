@@ -215,6 +215,16 @@
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/sixthDateTxtView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sat"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -259,6 +269,14 @@
                 <ImageView
 
                     android:id="@+id/fifthImageView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_sunny"
+                    />
+                <ImageView
+
+                    android:id="@+id/sixthImageView"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -316,6 +334,16 @@
                     />
                 <TextView
                     android:id="@+id/fifthTemp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="30dp"
+                    android:text="30°"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+                <TextView
+                    android:id="@+id/sixthTemp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="30dp"
