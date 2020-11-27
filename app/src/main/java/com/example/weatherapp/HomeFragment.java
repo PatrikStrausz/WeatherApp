@@ -1,6 +1,7 @@
 package com.example.weatherapp;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -41,7 +42,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 
 public class HomeFragment extends Fragment {
@@ -120,8 +120,7 @@ public class HomeFragment extends Fragment {
     private ImageView sixthHourImage;
     private ImageView seventhHourImage;
 
-
- private WeatherResult weatherResult;
+    private DateFormatter dateFormatter;
 
 
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -130,7 +129,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        dateFormatter = new DateFormatter();
 
 
     }
@@ -139,10 +138,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-
-
-
 
 
         dayTextView = view.findViewById(R.id.dayTextView);
@@ -179,45 +174,44 @@ public class HomeFragment extends Fragment {
         fifthImageView = view.findViewById(R.id.fifthImageView);
         sixthImageView = view.findViewById(R.id.sixthImageView);
 
-        windSpeedTextView    = view.findViewById(R.id.windSpeedTextView);
-        feelsLikeTextView    = view.findViewById(R.id.feelsLikeTextView) ;
-        humidityTextView     = view.findViewById(R.id.humidityTextView) ;
-        visibilityTextView   = view.findViewById(R.id.visibilityTextView)  ;
-        pressureTextView     = view.findViewById(R.id.pressureTextView) ;
-        tempMinTextView      = view.findViewById(R.id.tempMinTextView)  ;
-        tempMaxTextView      = view.findViewById(R.id.tempMaxTextView) ;
-        windDirectionTextView= view.findViewById(R.id.windDirectionTextView) ;
+        windSpeedTextView = view.findViewById(R.id.windSpeedTextView);
+        feelsLikeTextView = view.findViewById(R.id.feelsLikeTextView);
+        humidityTextView = view.findViewById(R.id.humidityTextView);
+        visibilityTextView = view.findViewById(R.id.visibilityTextView);
+        pressureTextView = view.findViewById(R.id.pressureTextView);
+        tempMinTextView = view.findViewById(R.id.tempMinTextView);
+        tempMaxTextView = view.findViewById(R.id.tempMaxTextView);
+        windDirectionTextView = view.findViewById(R.id.windDirectionTextView);
 
 
-        firstHourTextView  = view.findViewById(R.id.firstHourTextView);
+        firstHourTextView = view.findViewById(R.id.firstHourTextView);
         secondHourTextView = view.findViewById(R.id.secondHourTextView);
-        thirdHourTextView  = view.findViewById(R.id.thirdHourTextView);
+        thirdHourTextView = view.findViewById(R.id.thirdHourTextView);
         fourthHourTextView = view.findViewById(R.id.fourthHourTextView);
-        fifthHourTextView  = view.findViewById(R.id.fifthHourTextView);
-        sixthHourTextView  = view.findViewById(R.id.sixthHourTextView);
-        seventhHourTextView= view.findViewById(R.id.seventhHourTextView);
+        fifthHourTextView = view.findViewById(R.id.fifthHourTextView);
+        sixthHourTextView = view.findViewById(R.id.sixthHourTextView);
+        seventhHourTextView = view.findViewById(R.id.seventhHourTextView);
 
-        firstHourImage  = view.findViewById(R.id.firstHourImage);
+        firstHourImage = view.findViewById(R.id.firstHourImage);
         secondHourImage = view.findViewById(R.id.secondHourImage);
-        thirdHourImage  = view.findViewById(R.id.thirdHourImage);
+        thirdHourImage = view.findViewById(R.id.thirdHourImage);
         fourthHourImage = view.findViewById(R.id.fourthHourImage);
-        fifthHourImage  = view.findViewById(R.id.fifthHourImage);
-        sixthHourImage  = view.findViewById(R.id.sixthHourImage);
-        seventhHourImage= view.findViewById(R.id.seventhHourImage);
+        fifthHourImage = view.findViewById(R.id.fifthHourImage);
+        sixthHourImage = view.findViewById(R.id.sixthHourImage);
+        seventhHourImage = view.findViewById(R.id.seventhHourImage);
 
 
-        firstHourTemp  = view.findViewById(R.id.firstHourTemp);
+        firstHourTemp = view.findViewById(R.id.firstHourTemp);
         secondHourTemp = view.findViewById(R.id.secondHourTemp);
-        thirdHourTemp  = view.findViewById(R.id.thirdHourTemp);
+        thirdHourTemp = view.findViewById(R.id.thirdHourTemp);
         fourthHourTemp = view.findViewById(R.id.fourthHourTemp);
-        fifthHourTemp  = view.findViewById(R.id.fifthHourTemp);
-        sixthHourTemp  = view.findViewById(R.id.sixthHourTemp);
-        seventhHourTemp= view.findViewById(R.id.seventhHourTemp);
+        fifthHourTemp = view.findViewById(R.id.fifthHourTemp);
+        sixthHourTemp = view.findViewById(R.id.sixthHourTemp);
+        seventhHourTemp = view.findViewById(R.id.seventhHourTemp);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         getCurrentTime();
-
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -302,17 +296,11 @@ public class HomeFragment extends Fragment {
                     assert weatherResponse != null;
 
 
-
-
                     cityNameTextView.setText(weatherResponse.getCityObject().getName());
                     currentTemperatureTextView.setText(String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp())) + "°C");
                     currentWeatherTextView.setText(weatherResponse.getList().get(0).getWeatherList().get(0).getMain());
 
                     setBackgroundImage(weatherResponse.getList().get(0).getWeatherList().get(0).getMain());
-
-
-
-
 
 
                     setImage(todayImageWeather, weatherResponse.getList().get(0).getWeatherList().get(0).getIcon());
@@ -323,7 +311,6 @@ public class HomeFragment extends Fragment {
                     setImage(sixthImageView, weatherResponse.getList().get(39).getWeatherList().get(0).getIcon());
 
 
-
                     todayTempTextView.setText(String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp_max())) + "°");
                     secondTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(8).getMainList().getTemp_max())) + "°");
                     thirdTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(16).getMainList().getTemp_max())) + "°");
@@ -332,48 +319,47 @@ public class HomeFragment extends Fragment {
                     sixthTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(39).getMainList().getTemp_max())) + "°");
 
 
-                    firstDateTxtView.setText(getDay(weatherResponse.getList().get(0).getDt_txt()));
-                    secondDateTxtView.setText(getDay(weatherResponse.getList().get(8).getDt_txt()));
-                    thirdDateTxtView.setText(getDay(weatherResponse.getList().get(16).getDt_txt()));
-                    fouthDateTxtView.setText(getDay(weatherResponse.getList().get(24).getDt_txt()));
-                    fifthDateTxtView.setText(getDay(weatherResponse.getList().get(32).getDt_txt()));
-                    sixthDateTxtView.setText(getDay(weatherResponse.getList().get(39).getDt_txt()));
+                    firstDateTxtView.setText(dateFormatter.getDay(weatherResponse.getList().get(0).getDt_txt()));
+                    secondDateTxtView.setText(dateFormatter.getDay(weatherResponse.getList().get(8).getDt_txt()));
+                    thirdDateTxtView.setText(dateFormatter.getDay(weatherResponse.getList().get(16).getDt_txt()));
+                    fouthDateTxtView.setText(dateFormatter.getDay(weatherResponse.getList().get(24).getDt_txt()));
+                    fifthDateTxtView.setText(dateFormatter.getDay(weatherResponse.getList().get(32).getDt_txt()));
+                    sixthDateTxtView.setText(dateFormatter.getDay(weatherResponse.getList().get(39).getDt_txt()));
 
 
-                    windSpeedTextView    .setText("Wind speed\n"+String.valueOf(+Math.round(weatherResponse.getList().get(0).getWindList().getSpeed()))+"km/h" );
-                    feelsLikeTextView    .setText("Feels like\n"+String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getFeels_like()))+"°");
-                    humidityTextView     .setText("Humidity\n"+String.valueOf(weatherResponse.getList().get(0).getMainList().getHumidity())+"%");
-                    visibilityTextView   .setText("Visibility\n"+String.valueOf(weatherResponse.getList().get(0).getVisibility()/1000)+"km");
-                    pressureTextView     .setText("Pressure\n"+String.valueOf(weatherResponse.getList().get(0).getMainList().getPressure())+"hPa");
-                    tempMinTextView      .setText("Min temperature\n"+String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp_min()))+"°");
-                    tempMaxTextView      .setText("Max temperature\n"+String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp_max()))+"°");
-                    windDirectionTextView.setText("Wind direction\n"+String.valueOf(weatherResponse.getList().get(0).getWindList().getDeg()));
+                    windSpeedTextView.setText("Wind speed\n" + String.valueOf(+Math.round(weatherResponse.getList().get(0).getWindList().getSpeed())) + "km/h");
+                    feelsLikeTextView.setText("Feels like\n" + String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getFeels_like())) + "°");
+                    humidityTextView.setText("Humidity\n" + String.valueOf(weatherResponse.getList().get(0).getMainList().getHumidity()) + "%");
+                    visibilityTextView.setText("Visibility\n" + String.valueOf(weatherResponse.getList().get(0).getVisibility() / 1000) + "km");
+                    pressureTextView.setText("Pressure\n" + String.valueOf(weatherResponse.getList().get(0).getMainList().getPressure()) + "hPa");
+                    tempMinTextView.setText("Min temperature\n" + String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp_min())) + "°");
+                    tempMaxTextView.setText("Max temperature\n" + String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp_max())) + "°");
+                    windDirectionTextView.setText("Wind direction\n" + String.valueOf(weatherResponse.getList().get(0).getWindList().getDeg()));
 
-                    firstHourTextView  .setText(getHour(weatherResponse.getList().get(0).getDt_txt()));
-                    secondHourTextView .setText(getHour(weatherResponse.getList().get(1).getDt_txt()));
-                    thirdHourTextView  .setText(getHour(weatherResponse.getList().get(2).getDt_txt()));
-                    fourthHourTextView .setText(getHour(weatherResponse.getList().get(3).getDt_txt()));
-                    fifthHourTextView  .setText(getHour(weatherResponse.getList().get(4).getDt_txt()));
-                    sixthHourTextView  .setText(getHour(weatherResponse.getList().get(5).getDt_txt()));
-                    seventhHourTextView.setText(getHour(weatherResponse.getList().get(6).getDt_txt()));
+                    firstHourTextView.setText(dateFormatter.getHour(weatherResponse.getList().get(0).getDt_txt()));
+                    secondHourTextView.setText(dateFormatter.getHour(weatherResponse.getList().get(1).getDt_txt()));
+                    thirdHourTextView.setText(dateFormatter.getHour(weatherResponse.getList().get(2).getDt_txt()));
+                    fourthHourTextView.setText(dateFormatter.getHour(weatherResponse.getList().get(3).getDt_txt()));
+                    fifthHourTextView.setText(dateFormatter.getHour(weatherResponse.getList().get(4).getDt_txt()));
+                    sixthHourTextView.setText(dateFormatter.getHour(weatherResponse.getList().get(5).getDt_txt()));
+                    seventhHourTextView.setText(dateFormatter.getHour(weatherResponse.getList().get(6).getDt_txt()));
 
 
-                    setImage(firstHourImage  , weatherResponse.getList().get(0).getWeatherList().get(0).getIcon());
-                    setImage(secondHourImage , weatherResponse.getList().get(1).getWeatherList().get(0).getIcon());
-                    setImage(thirdHourImage  , weatherResponse.getList().get(2).getWeatherList().get(0).getIcon());
-                    setImage(fourthHourImage , weatherResponse.getList().get(3).getWeatherList().get(0).getIcon());
-                    setImage(fifthHourImage  , weatherResponse.getList().get(4).getWeatherList().get(0).getIcon());
-                    setImage(sixthHourImage  , weatherResponse.getList().get(5).getWeatherList().get(0).getIcon());
+                    setImage(firstHourImage, weatherResponse.getList().get(0).getWeatherList().get(0).getIcon());
+                    setImage(secondHourImage, weatherResponse.getList().get(1).getWeatherList().get(0).getIcon());
+                    setImage(thirdHourImage, weatherResponse.getList().get(2).getWeatherList().get(0).getIcon());
+                    setImage(fourthHourImage, weatherResponse.getList().get(3).getWeatherList().get(0).getIcon());
+                    setImage(fifthHourImage, weatherResponse.getList().get(4).getWeatherList().get(0).getIcon());
+                    setImage(sixthHourImage, weatherResponse.getList().get(5).getWeatherList().get(0).getIcon());
                     setImage(seventhHourImage, weatherResponse.getList().get(6).getWeatherList().get(0).getIcon());
 
 
-
-                    firstHourTemp  .setText(String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp())) + "°");
-                    secondHourTemp .setText(String.valueOf(Math.round(weatherResponse.getList().get(1).getMainList().getTemp())) + "°");
-                    thirdHourTemp  .setText(String.valueOf(Math.round(weatherResponse.getList().get(2).getMainList().getTemp())) + "°");
-                    fourthHourTemp .setText(String.valueOf(Math.round(weatherResponse.getList().get(3).getMainList().getTemp())) + "°");
-                    fifthHourTemp  .setText(String.valueOf(Math.round(weatherResponse.getList().get(4).getMainList().getTemp())) + "°");
-                    sixthHourTemp  .setText(String.valueOf(Math.round(weatherResponse.getList().get(5).getMainList().getTemp())) + "°");
+                    firstHourTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp())) + "°");
+                    secondHourTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(1).getMainList().getTemp())) + "°");
+                    thirdHourTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(2).getMainList().getTemp())) + "°");
+                    fourthHourTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(3).getMainList().getTemp())) + "°");
+                    fifthHourTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(4).getMainList().getTemp())) + "°");
+                    sixthHourTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(5).getMainList().getTemp())) + "°");
                     seventhHourTemp.setText(String.valueOf(Math.round(weatherResponse.getList().get(6).getMainList().getTemp())) + "°");
 
                 }
@@ -389,35 +375,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     void getCurrentWeatherByCityName(String cityName) {
@@ -455,8 +412,6 @@ public class HomeFragment extends Fragment {
                     currentWeatherTextView.setText(weatherResponse.getList().get(0).getWeatherList().get(0).getMain());
 
 
-
-
                 }
             }
 
@@ -477,14 +432,13 @@ public class HomeFragment extends Fragment {
 
         Date dates = Calendar.getInstance().getTime();
         DateFormat dateFormat1 = new SimpleDateFormat("EEEE", Locale.ENGLISH);
-        DateFormat dateFormat2 = new SimpleDateFormat("MMM dd",  Locale.ENGLISH);
-        DateFormat dateFormat3 = new SimpleDateFormat("HH:mm",  Locale.ENGLISH);
+        DateFormat dateFormat2 = new SimpleDateFormat("MMM dd", Locale.ENGLISH);
+        DateFormat dateFormat3 = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
 
         String strDate1 = dateFormat1.format(dates).substring(0, 1).toUpperCase() + dateFormat1.format(dates).substring(1) + " |";
         String strDate2 = dateFormat2.format(dates).substring(0, 1).toUpperCase() + dateFormat2.format(dates).substring(1) + " |";
         String strDate3 = dateFormat3.format(dates);
-
 
 
         dayTextView.setText(strDate1);
@@ -493,20 +447,19 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private void setBackgroundImage(String main) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 switch (main) {
                     case "Clouds":
-                        linearLayout.setBackground(getResources().getDrawable(R.drawable.cloudy));
+                        linearLayout.setBackground(getResources().getDrawable(R.drawable.drizzle_background));
                         break;
                     case "Drizzle":
-                        linearLayout.setBackground(getResources().getDrawable(R.drawable.cloudy));
+                        linearLayout.setBackground(getResources().getDrawable(R.drawable.drizzle_background));
                         break;
                     case "Clear":
-                        linearLayout.setBackground(getResources().getDrawable(R.drawable.u));
+                        linearLayout.setBackground(getResources().getDrawable(R.drawable.sunny_background));
                         break;
                     case "Thunderstorm":
                         linearLayout.setBackground(getResources().getDrawable(R.drawable.stormy));
@@ -591,35 +544,5 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private  String getDay(String date){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.ENGLISH);
-        Date myDate = null;
-        try {
-            myDate = sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        sdf.applyPattern("EEE");
-        String sMyDate = sdf.format(myDate);
 
-        return sMyDate;
-
-
-    }
-
-    private  String getHour(String date){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.ENGLISH);
-        Date myDate = null;
-        try {
-            myDate = sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        sdf.applyPattern("HH:mm");
-        String sMyDate = sdf.format(myDate);
-
-        return sMyDate;
-
-
-    }
 }

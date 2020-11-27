@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="0dp"
     android:orientation="vertical"
-    android:background="@drawable/u"
+    android:background="@drawable/clear_background"
     android:layout_marginBottom="?attr/actionBarSize">
 
     <ScrollView

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.example.weatherapp.HomeFragment;
@@ -18,6 +19,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,15 +37,20 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
+    private WeatherResult weatherResult;
+
 
    private BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
        navView = findViewById(R.id.navigation);
+
+
 
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -50,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.container,fragment1, "1").commit();
-
-
 
 
 

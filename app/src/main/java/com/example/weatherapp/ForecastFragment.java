@@ -35,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ForecastFragment extends Fragment implements Serializable{
+public class ForecastFragment extends Fragment implements Serializable {
 
 
     private TextView firstDayTextView;
@@ -69,11 +69,14 @@ public class ForecastFragment extends Fragment implements Serializable{
     private MaterialCardView cardView;
     private MaterialCardView secondCardView;
 
-   private WeatherResult weatherResult;
+    private WeatherResult weatherResult;
+
+    private DateFormatter dateFormatter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
 
         View view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
@@ -108,23 +111,18 @@ public class ForecastFragment extends Fragment implements Serializable{
         cardView = view.findViewById(R.id.cardView);
         secondCardView = view.findViewById(R.id.secondCardView);
 
-
-
-
-
-
-
+        dateFormatter = new DateFormatter();
 
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(getActivity(), ForecastDetail.class);
-               Log.d("Response", weatherResult.getCityObject().getName());
-               Bundle bundle = new Bundle();
-               bundle.putSerializable("Response", weatherResult);
-               bundle.putInt("Index", 0);
-               intent.putExtras(bundle);
+                Intent intent = new Intent(getActivity(), ForecastDetail.class);
+                Log.d("Response", weatherResult.getCityObject().getName());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Response", weatherResult);
+                bundle.putInt("Index", 0);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -146,7 +144,6 @@ public class ForecastFragment extends Fragment implements Serializable{
 
         return view;
     }
-    
 
 
     void getForecast() {
@@ -174,15 +171,14 @@ public class ForecastFragment extends Fragment implements Serializable{
                     assert weatherResponse != null;
 
 
+                    weatherResult = weatherResponse;
 
-                  weatherResult = weatherResponse;
-
-                    firstDayTextView.setText(getCurrentTime(weatherResponse.getList().get(0).getDt_txt()));
-                    secondDayTextView.setText(getCurrentTime(weatherResponse.getList().get(8).getDt_txt()));
-                    thirdDayTextView.setText(getCurrentTime(weatherResponse.getList().get(16).getDt_txt()));
-                    fourthDayTextView.setText(getCurrentTime(weatherResponse.getList().get(24).getDt_txt()));
-                    fifthDayTextView.setText(getCurrentTime(weatherResponse.getList().get(32).getDt_txt()));
-                    sixthDayTextView.setText(getCurrentTime(weatherResponse.getList().get(39).getDt_txt()));
+                    firstDayTextView.setText(dateFormatter.getCurrentTime(weatherResponse.getList().get(0).getDt_txt()));
+                    secondDayTextView.setText(dateFormatter.getCurrentTime(weatherResponse.getList().get(8).getDt_txt()));
+                    thirdDayTextView.setText(dateFormatter.getCurrentTime(weatherResponse.getList().get(16).getDt_txt()));
+                    fourthDayTextView.setText(dateFormatter.getCurrentTime(weatherResponse.getList().get(24).getDt_txt()));
+                    fifthDayTextView.setText(dateFormatter.getCurrentTime(weatherResponse.getList().get(32).getDt_txt()));
+                    sixthDayTextView.setText(dateFormatter.getCurrentTime(weatherResponse.getList().get(39).getDt_txt()));
 
                     firstMaxTempTextView.setText(String.valueOf(Math.round(weatherResponse.getList().get(0).getMainList().getTemp_max())) + "°");
                     secondMaxTempTextView.setText(String.valueOf(Math.round(weatherResponse.getList().get(8).getMainList().getTemp_max())) + "°");
@@ -198,12 +194,12 @@ public class ForecastFragment extends Fragment implements Serializable{
                     fifthMinTempTextView.setText("/" + String.valueOf(Math.round(weatherResponse.getList().get(32).getMainList().getTemp_min())) + "°");
                     sixthMinTempTextView.setText("/" + String.valueOf(Math.round(weatherResponse.getList().get(39).getMainList().getTemp_min())) + "°");
 
-                    setImage(firstImage  , weatherResponse.getList().get(0).getWeatherList().get(0).getIcon());
-                    setImage(secondImage  , weatherResponse.getList().get(8).getWeatherList().get(0).getIcon());
-                    setImage(thirdImage  , weatherResponse.getList().get(16).getWeatherList().get(0).getIcon());
-                    setImage(fourthImage  , weatherResponse.getList().get(24).getWeatherList().get(0).getIcon());
-                    setImage(fifthImage  , weatherResponse.getList().get(32).getWeatherList().get(0).getIcon());
-                    setImage(sixthImage  , weatherResponse.getList().get(39).getWeatherList().get(0).getIcon());
+                    setImage(firstImage, weatherResponse.getList().get(0).getWeatherList().get(0).getIcon());
+                    setImage(secondImage, weatherResponse.getList().get(8).getWeatherList().get(0).getIcon());
+                    setImage(thirdImage, weatherResponse.getList().get(16).getWeatherList().get(0).getIcon());
+                    setImage(fourthImage, weatherResponse.getList().get(24).getWeatherList().get(0).getIcon());
+                    setImage(fifthImage, weatherResponse.getList().get(32).getWeatherList().get(0).getIcon());
+                    setImage(sixthImage, weatherResponse.getList().get(39).getWeatherList().get(0).getIcon());
 
 
                 }
@@ -220,24 +216,6 @@ public class ForecastFragment extends Fragment implements Serializable{
         });
     }
 
-
-    private String getCurrentTime(String date) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.ENGLISH);
-        Date myDate = null;
-        try {
-            myDate = sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        sdf.applyPattern("EEE dd/MM");
-        String sMyDate = sdf.format(myDate);
-        sMyDate = sMyDate.replaceAll(" ", "\n");
-
-        return sMyDate;
-
-
-    }
 
     private void setImage(final ImageView imageView, final String value) {
 
