@@ -21,7 +21,7 @@
 
         <SwitchPreferenceCompat
             app:key="sync"
-            app:title="@string/sync_title" />
+            app:title="Dark mode" />
 
         <SwitchPreferenceCompat
             app:dependency="sync"

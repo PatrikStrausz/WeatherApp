@@ -1,32 +1,21 @@
 package com.example.weatherapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
-import android.widget.Toast;
 
-import com.example.weatherapp.HomeFragment;
+import com.example.weatherapp.forecast.ForecastFragment;
+import com.example.weatherapp.home.HomeFragment;
+import com.example.weatherapp.weather.WeatherResult;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import java.io.Serializable;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import static com.google.gson.reflect.TypeToken.get;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
     private WeatherResult weatherResult;
 
+   private String longitude;
 
-   private BottomNavigationView navView;
+    private String latitude;
+
+
+    private BottomNavigationView navView;
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +43,16 @@ public class MainActivity extends AppCompatActivity {
         this.getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-       navView = findViewById(R.id.navigation);
-
-
+        navView = findViewById(R.id.navigation);
 
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
-        fm.beginTransaction().add(R.id.container,fragment1, "1").commit();
+        fm.beginTransaction().add(R.id.container, fragment1, "1").commit();
 
-
-
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
     }
 
 

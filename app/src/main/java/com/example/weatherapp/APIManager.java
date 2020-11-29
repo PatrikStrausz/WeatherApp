@@ -2,6 +2,8 @@ package com.example.weatherapp;
 
 
 
+import com.example.weatherapp.weather.WeatherResult;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -17,14 +19,14 @@ public interface APIManager {
 
 
 
-  @GET("forecast?")
+  @GET("forecast")
   Call<WeatherResult> getCurrentWeather(@Query("lat") String lat,
                                         @Query("lon") String lon,
                                         @Query("appid") String appId,
                                         @Query("units") String units);
 
 
-  @GET("forecast?")
+  @GET("forecast")
   Call<WeatherResult> getCurrentWeatherByCityName
           (@Query("q") String cityName,
            @Query("appid") String appId,

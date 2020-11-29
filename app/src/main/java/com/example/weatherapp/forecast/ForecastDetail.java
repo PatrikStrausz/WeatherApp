@@ -1,30 +1,27 @@
-package com.example.weatherapp;
+package com.example.weatherapp.forecast;
 
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.weatherapp.DateFormatter;
+import com.example.weatherapp.R;
+import com.example.weatherapp.weather.WeatherResult;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class ForecastDetail extends AppCompatActivity implements Serializable {
 
@@ -52,11 +49,29 @@ public class ForecastDetail extends AppCompatActivity implements Serializable {
     private ImageView sixthImage;
     private ImageView seventhImage;
 
+
+    private TextView firstHours;
+    private TextView secondHours;
+    private TextView thirdHours;
+    private TextView fourthHours;
+    private TextView fifthHours;
+    private TextView sixthHours;
+    private TextView seventhHours;
+
+    private ImageView firstImages;
+    private ImageView secondImages;
+    private ImageView thirdImages;
+    private ImageView fourthImages;
+    private ImageView fifthImages;
+    private ImageView sixthImages;
+    private ImageView seventhImages;
+
     private WeatherResult weatherResult;
 
     private int index;
 
     private LineChart lineChart;
+    private LineChart lineChart2;
 
     private DateFormatter dateFormatter;
 
@@ -64,6 +79,8 @@ public class ForecastDetail extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast_detail);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         dateFormatter = new DateFormatter();
 
@@ -97,12 +114,30 @@ public class ForecastDetail extends AppCompatActivity implements Serializable {
         sixthImage = findViewById(R.id.sixthHourImage);
         seventhImage = findViewById(R.id.seventhHourImage);
 
+        firstHours = findViewById(R.id.firstHours);
+        secondHours = findViewById(R.id.secondHours);
+        thirdHours = findViewById(R.id.thirdHours);
+        fourthHours = findViewById(R.id.fourthHours);
+        fifthHours = findViewById(R.id.fifthHours);
+        sixthHours = findViewById(R.id.sixthHours);
+        seventhHours = findViewById(R.id.seventhHours);
+
+        firstImages = findViewById(R.id.firstHourImages);
+        secondImages = findViewById(R.id.secondHourImages);
+        thirdImages = findViewById(R.id.thirdHourImages);
+        fourthImages = findViewById(R.id.fourthHourImages);
+        fifthImages = findViewById(R.id.fifthHourImages);
+        sixthImages = findViewById(R.id.sixthHourImages);
+        seventhImages = findViewById(R.id.seventhHourImages);
+
         lineChart = findViewById(R.id.lineChart);
+        lineChart2 = findViewById(R.id.lineChart2);
 
 
         assignValues();
 
         setupChart();
+        setupChart2();
 
 
     }
@@ -152,10 +187,61 @@ public class ForecastDetail extends AppCompatActivity implements Serializable {
         lineChart.getXAxis().setEnabled(false);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.getAxisLeft().setEnabled(false);
+        lineChart.getDescription().setEnabled(false);
 
 
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
+    }
+
+    private void setupChart2() {
+        LineDataSet lineDataSet = new LineDataSet(lineChartData2(), "Humidity");
+
+        lineDataSet.setDrawCircleHole(false);
+        lineDataSet.setValueTextSize(15);
+        lineDataSet.setValueTextColor(Color.WHITE);
+
+        lineDataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return ((int) value) + "%";
+            }
+        });
+
+        ArrayList<ILineDataSet> dataSet = new ArrayList<>();
+        dataSet.add(lineDataSet);
+
+
+        LineData lineData = new LineData(dataSet);
+
+        lineChart2.setData(lineData);
+
+        lineChart2.setTouchEnabled(false);
+        lineChart2.setScaleEnabled(false);
+
+        lineChart2.setDrawGridBackground(false);
+        lineChart2.setDrawBorders(false);
+        lineChart2.getLegend().setEnabled(false);
+        lineChart2.getXAxis().setEnabled(false);
+        lineChart2.getAxisRight().setEnabled(false);
+        lineChart2.getAxisLeft().setEnabled(false);
+        lineChart2.getDescription().setEnabled(false);
+
+
+        lineChart2.notifyDataSetChanged();
+        lineChart2.invalidate();
+    }
+
+    private List<Entry> lineChartData2() {
+        ArrayList<Entry> data = new ArrayList<>();
+        data.add(new Entry(0, Math.round(weatherResult.getList().get(index).getMainList().getHumidity())));
+        data.add(new Entry(1, Math.round(weatherResult.getList().get(index + 1).getMainList().getHumidity())));
+        data.add(new Entry(2, Math.round(weatherResult.getList().get(index + 2).getMainList().getHumidity())));
+        data.add(new Entry(3, Math.round(weatherResult.getList().get(index + 3).getMainList().getHumidity())));
+        data.add(new Entry(4, Math.round(weatherResult.getList().get(index + 4).getMainList().getHumidity())));
+        data.add(new Entry(5, Math.round(weatherResult.getList().get(index + 5).getMainList().getHumidity())));
+        data.add(new Entry(6, Math.round(weatherResult.getList().get(index + 6).getMainList().getHumidity())));
+        return data;
     }
 
     private void assignValues() {
@@ -184,6 +270,23 @@ public class ForecastDetail extends AppCompatActivity implements Serializable {
             setImage(fifthImage, weatherResult.getList().get(index + 4).getWeatherList().get(0).getIcon());
             setImage(sixthImage, weatherResult.getList().get(index + 5).getWeatherList().get(0).getIcon());
             setImage(seventhImage, weatherResult.getList().get(index + 6).getWeatherList().get(0).getIcon());
+
+
+            firstHours.setText(dateFormatter.getHour(weatherResult.getList().get(index).getDt_txt()));
+            secondHours.setText(dateFormatter.getHour(weatherResult.getList().get(index + 1).getDt_txt()));
+            thirdHours.setText(dateFormatter.getHour(weatherResult.getList().get(index + 2).getDt_txt()));
+            fourthHours.setText(dateFormatter.getHour(weatherResult.getList().get(index + 3).getDt_txt()));
+            fifthHours.setText(dateFormatter.getHour(weatherResult.getList().get(index + 4).getDt_txt()));
+            sixthHours.setText(dateFormatter.getHour(weatherResult.getList().get(index + 5).getDt_txt()));
+            seventhHours.setText(dateFormatter.getHour(weatherResult.getList().get(index + 6).getDt_txt()));
+
+            setImage(firstImages, weatherResult.getList().get(index).getWeatherList().get(0).getIcon());
+            setImage(secondImages, weatherResult.getList().get(index + 1).getWeatherList().get(0).getIcon());
+            setImage(thirdImages, weatherResult.getList().get(index + 2).getWeatherList().get(0).getIcon());
+            setImage(fourthImages, weatherResult.getList().get(index + 3).getWeatherList().get(0).getIcon());
+            setImage(fifthImages, weatherResult.getList().get(index + 4).getWeatherList().get(0).getIcon());
+            setImage(sixthImages, weatherResult.getList().get(index + 5).getWeatherList().get(0).getIcon());
+            setImage(seventhImages, weatherResult.getList().get(index + 6).getWeatherList().get(0).getIcon());
 
 
         }

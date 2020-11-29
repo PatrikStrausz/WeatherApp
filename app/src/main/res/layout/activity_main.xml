@@ -12,6 +12,7 @@ tools:context=".MainActivity">
 
 <!-- Fragments Container -->
 
+
 <include
     layout="@layout/content_main"
     android:layout_width="0dp"
