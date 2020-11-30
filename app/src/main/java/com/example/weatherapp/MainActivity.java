@@ -5,6 +5,7 @@ import android.view.MenuItem;
 
 import com.example.weatherapp.forecast.ForecastFragment;
 import com.example.weatherapp.home.HomeFragment;
+import com.example.weatherapp.mylocation.MyLocationsFragment;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     final Fragment fragment1 = new HomeFragment();
     final Fragment fragment2 = new ForecastFragment();
     final Fragment fragment3 = new SettingsFragment();
+    final Fragment fragment4 = new MyLocationsFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        fm.beginTransaction().add(R.id.container, fragment4, "4").hide(fragment4).commit();
         fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.container, fragment1, "1").commit();
@@ -75,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_settings:
                     fm.beginTransaction().hide(active).show(fragment3).commit();
                     active = fragment3;
+                    break;
+                case R.id.navigation_mylocation:
+                    fm.beginTransaction().hide(active).show(fragment4).commit();
+                    active = fragment4;
                     break;
             }
             return true;

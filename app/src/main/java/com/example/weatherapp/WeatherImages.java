@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.cardview.widget.CardView;
+
 public class WeatherImages {
 
     public void setImage(final ImageView imageView, final String value, Context context) {
@@ -95,6 +97,67 @@ public class WeatherImages {
             case "03:00":
                 linearLayout.setBackground(context.getDrawable(R.drawable.background_night));
                 break;
+
+        }
+    }
+
+    public void setCardViewBackground(CardView cardView, Context context, String value){
+        switch (value) {
+            case "01d":
+
+                cardView.setBackground(context.getDrawable(R.drawable.sunny_widget));
+                break;
+            case "01n":
+                cardView.setBackground(context.getDrawable(R.drawable.sunny_widget));
+                break;
+            case "02d":
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
+                break;
+            case "02n":
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
+                break;
+            case "03d":
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
+                break;
+            case "03n":
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
+                break;
+            case "04d":
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
+                break;
+            case "04n":
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
+                break;
+            case "09d":
+                cardView.setBackground(context.getDrawable(R.drawable.rain_widget));
+                break;
+            case "09n":
+                cardView.setBackground(context.getDrawable(R.drawable.rain_widget));
+                break;
+            case "10d":
+
+                cardView.setBackground(context.getDrawable(R.drawable.rain_widget));
+                break;
+            case "10n":
+                cardView.setBackground(context.getDrawable(R.drawable.rain_widget));
+                break;
+            case "11d":
+                cardView.setBackground(context.getDrawable(R.drawable.rain_widget));
+                break;
+            case "11n":
+                cardView.setBackground(context.getDrawable(R.drawable.rain_widget));
+                break;
+            case "13d":
+                cardView.setBackground(context.getDrawable(R.drawable.widget_snow));
+                break;
+            case "13n":
+                cardView.setBackground(context.getDrawable(R.drawable.widget_snow));
+                break;
+            case "50d":
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
+                break;
+            default:
+                cardView.setBackground(context.getDrawable(R.drawable.cloudy_widget));
 
         }
     }

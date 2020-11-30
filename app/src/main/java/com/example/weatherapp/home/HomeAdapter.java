@@ -19,6 +19,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
 
 
+
     public void setmAllRepositories(WeatherResult mAllRepositories) {
         this.mAllRepositories = mAllRepositories;
         notifyDataSetChanged();

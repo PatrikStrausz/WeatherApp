@@ -1,32 +1,55 @@
 package com.example.weatherapp.weather;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.weatherapp.Converters;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity(tableName = "weather_result")
 public class WeatherResult implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private int id;
+
+    @ColumnInfo(name = "cod")
     @SerializedName("cod")
     private String cod;
+
+    @ColumnInfo(name = "message")
     @SerializedName("message")
     private int message;
+
+    @ColumnInfo(name = "cnt")
     @SerializedName("cnt")
     private int cnt;
+
+    @ColumnInfo(name = "list")
     @SerializedName("list")
-    private List< WeatherList > list = new ArrayList<WeatherList>();
+    @TypeConverters({Converters.class})
+    private List< WeatherList > list = new ArrayList<>();
+
+    @ColumnInfo(name = "city")
     @SerializedName("city")
+    @TypeConverters({Converters.class})
     private City CityObject;
 
     public WeatherResult() {
     }
 
-    public List<WeatherList> getList() {
-        return list;
+    public int getId() {
+        return id;
     }
 
-    public void setList(List<WeatherList> list) {
-        this.list = list;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCod() {
@@ -37,7 +60,7 @@ public class WeatherResult implements Serializable {
         this.cod = cod;
     }
 
-    public float getMessage() {
+    public int getMessage() {
         return message;
     }
 
@@ -45,12 +68,20 @@ public class WeatherResult implements Serializable {
         this.message = message;
     }
 
-    public float getCnt() {
+    public int getCnt() {
         return cnt;
     }
 
     public void setCnt(int cnt) {
         this.cnt = cnt;
+    }
+
+    public List<WeatherList> getList() {
+        return list;
+    }
+
+    public void setList(List<WeatherList> list) {
+        this.list = list;
     }
 
     public City getCityObject() {

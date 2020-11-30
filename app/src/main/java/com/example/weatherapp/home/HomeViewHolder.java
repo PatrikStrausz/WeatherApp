@@ -13,8 +13,6 @@ import com.example.weatherapp.DateFormatter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherImages;
 import com.example.weatherapp.weather.WeatherResult;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder {
 
@@ -64,11 +62,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
     private TextView sixthHourTemp;
     private TextView seventhHourTemp;
 
-
-    private TextInputEditText editText;
-
-    private MaterialButton button;
-
     private ImageView todayImageWeather;
     private ImageView secondImageView;
     private ImageView thirdImageView;
@@ -89,6 +82,8 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
     private WeatherImages weatherImages;
 
     private LinearLayout linearLayout;
+
+
 
     public HomeViewHolder(@NonNull View view) {
         super(view);
@@ -120,9 +115,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         fifthTemp = view.findViewById(R.id.fifthTemp);
         sixthTemp = view.findViewById(R.id.sixthTemp);
 
-        editText = view.findViewById(R.id.editText);
-
-        button = view.findViewById(R.id.getLocation);
 
         todayImageWeather = view.findViewById(R.id.firstImageView);
         secondImageView = view.findViewById(R.id.secondImageView);
@@ -175,6 +167,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         currentWeatherTextView.setText(weatherResult.getList().get(0).getWeatherList().get(0).getMain());
 
             weatherImages.setBackground(dateFormatter.getHour(weatherResult.getList().get(0).getDt_txt()),linearLayout,context);
+
 
 
         weatherImages.setImage(todayImageWeather, weatherResult.getList().get(0).getWeatherList().get(0).getIcon(), context);
@@ -238,5 +231,8 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
 
 
         dateFormatter.getCurrentTime(dayTextView, monthTextView, timeTextView);
+
+
+
     }
 }

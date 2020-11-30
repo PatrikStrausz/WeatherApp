@@ -141,8 +141,13 @@ public class ForecastViewHolder  extends RecyclerView.ViewHolder{
         weatherImages.setImage(sixthImage, weatherResponse.getList().get(39).getWeatherList().get(0).getIcon(),context);
 
 
-        cardView.setBackgroundDrawable(context.getDrawable(R.drawable.widget_snow));
-        
+        weatherImages.setCardViewBackground(cardView, context, weatherResponse.getList().get(0).getWeatherList().get(0).getIcon());
+        weatherImages.setCardViewBackground(secondCardView, context, weatherResponse.getList().get(8).getWeatherList().get(0).getIcon());
+        weatherImages.setCardViewBackground(thirdCardView, context, weatherResponse.getList().get(16).getWeatherList().get(0).getIcon());
+        weatherImages.setCardViewBackground(fourthCardView, context, weatherResponse.getList().get(24).getWeatherList().get(0).getIcon());
+        weatherImages.setCardViewBackground(fifthCardView, context, weatherResponse.getList().get(32).getWeatherList().get(0).getIcon());
+        weatherImages.setCardViewBackground(sixthCardView, context, weatherResponse.getList().get(39).getWeatherList().get(0).getIcon());
+
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override

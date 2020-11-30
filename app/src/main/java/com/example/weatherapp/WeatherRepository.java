@@ -1,11 +1,14 @@
 package com.example.weatherapp;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.weatherapp.weather.WeatherResult;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,14 +20,41 @@ public class WeatherRepository {
 
 
     private MutableLiveData<WeatherResult> mRepos = new MutableLiveData<>();
+    private MutableLiveData<WeatherResult> location = new MutableLiveData<>();
     private Thread mThread;
 
+    private WeatherDao weatherDao;
+    private LiveData<List<WeatherResult>> weatherList;
+
+    private WeatherResult weatherResult = new WeatherResult();
 
 
     public LiveData<WeatherResult> getRepos(){
         return mRepos;
     }
 
+    public MutableLiveData<WeatherResult> getLocation() {
+        return location;
+    }
+
+    WeatherRepository(Application application){
+        WeatherDatabase database = WeatherDatabase.getDatabase(application);
+        weatherDao = database.weatherDao();
+
+        weatherList = weatherDao.getAllVehicles();
+    }
+
+    public LiveData<List<WeatherResult>> getWeatherList() {
+        return weatherList;
+    }
+
+    void insert(WeatherResult weatherResult){
+        WeatherDatabase.databaseWriteExecutor.execute(
+                ()->{
+                    weatherDao.insert(weatherResult);
+                }
+        );
+    }
 
     public void getWeatherByCoordinates(){
         Runnable fetchJsonRunnable = new Runnable() {
@@ -42,11 +72,11 @@ public class WeatherRepository {
         mThread.start();
     }
 
-    public void getWeatherByCityName(){
+    public void getWeatherByCityName(String city){
         Runnable fetchJsonRunnable = new Runnable() {
             @Override
             public void run() {
-                getWeatherByCityName();
+              getCurrentWeatherByCityName(city);
             }
         };
 
@@ -56,6 +86,7 @@ public class WeatherRepository {
         }
         mThread = new Thread(fetchJsonRunnable);
         mThread.start();
+
     }
 
 
@@ -114,6 +145,8 @@ public class WeatherRepository {
         Call<WeatherResult> call = service.getCurrentWeatherByCityName(cityName, APIManager.API_ID, APIManager.UNITS);
 
 
+
+
         call.enqueue(new Callback<WeatherResult>() {
             @Override
             public void onResponse(Call<WeatherResult> call, Response<WeatherResult> response) {
@@ -123,9 +156,14 @@ public class WeatherRepository {
 
                 if (response.code() == 200) {
                     WeatherResult weatherResponse = response.body();
+                    weatherResult = weatherResponse;
 
                     if(weatherResponse != null){
-                        mRepos.postValue(weatherResponse);
+//
+
+                        location.postValue(weatherResponse);
+
+
                     }
 
 
@@ -143,6 +181,7 @@ public class WeatherRepository {
 
             }
         });
+//
 
 
     }

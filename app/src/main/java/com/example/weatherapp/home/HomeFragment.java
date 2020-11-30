@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  {
 
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -155,15 +155,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
-
-
-
-
-
-
-
 
 
 
