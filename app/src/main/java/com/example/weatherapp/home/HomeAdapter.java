@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.weatherapp.OnForecastClick;
 import com.example.weatherapp.R;
 import com.example.weatherapp.weather.WeatherResult;
 
@@ -16,8 +17,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     private Context context;
 
     private WeatherResult mAllRepositories;
-
-
 
 
     public void setmAllRepositories(WeatherResult mAllRepositories) {

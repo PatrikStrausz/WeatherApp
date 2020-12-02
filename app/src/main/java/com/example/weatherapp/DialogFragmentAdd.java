@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.weatherapp.mylocation.LocationAdapter;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -36,6 +37,10 @@ public class DialogFragmentAdd extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_dialog, null);
 
+       ViewModelProvider provider = new ViewModelProvider(requireActivity());
+        WeatherViewModel weatherViewModel = provider.get(WeatherViewModel.class);
+
+        TextInputEditText editText = view.findViewById(R.id.edit_text);
 
         builder.setMessage("Insert city to add")
                 .setView(view)
@@ -43,32 +48,8 @@ public class DialogFragmentAdd extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        ViewModelProvider provider = new ViewModelProvider(requireActivity());
-                        WeatherViewModel weatherViewModel = provider.get(WeatherViewModel.class);
-
-                        TextInputEditText editText = view.findViewById(R.id.edit_text);
-
-
-                                WeatherResult weatherResult = new WeatherResult();
 
                                 weatherViewModel.getWeatherByCityName(editText.getText().toString().trim());
-
-
-                                weatherViewModel.getLocation().observe(activity, new Observer<WeatherResult>() {
-                                    @Override
-                                    public void onChanged(WeatherResult weatherResult) {
-
-                                        weatherViewModel.insert(weatherResult);
-                                        Log.d("Dialog", weatherResult.getCityObject().getName());
-
-                                    }
-                                });
-
-
-
-
-
-
 
 
                     }
@@ -79,6 +60,8 @@ public class DialogFragmentAdd extends DialogFragment {
 
                     }
                 });
+
+
 
 
 

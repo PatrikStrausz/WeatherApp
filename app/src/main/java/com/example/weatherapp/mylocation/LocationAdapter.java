@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.weatherapp.CustomForecastClick;
+import com.example.weatherapp.OnForecastClick;
 import com.example.weatherapp.R;
 import com.example.weatherapp.mylocation.LocationViewHolder;
 import com.example.weatherapp.weather.WeatherResult;
@@ -18,7 +20,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     private Context context;
 
+    private CustomForecastClick listener;
 
+    public void setListener(CustomForecastClick listener) {
+        this.listener = listener;
+    }
 
     private List<WeatherResult> cachedWeather;
 
@@ -39,7 +45,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_my_locations_list, parent, false);
-        return new LocationViewHolder(view);
+        LocationViewHolder holder = new LocationViewHolder(view);
+        holder.setListener(listener);
+        return holder;
     }
 
     @Override

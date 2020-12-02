@@ -1,6 +1,7 @@
 package com.example.weatherapp;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -33,6 +34,7 @@ public class WeatherViewModel extends AndroidViewModel {
 
 
     public LiveData<List<WeatherResult>> getWeatherList() {
+
         return weatherList;
     }
 
@@ -40,6 +42,9 @@ public class WeatherViewModel extends AndroidViewModel {
         repository.insert(weatherResult);
     }
 
+    public void delete(WeatherResult weatherResult){
+        repository.delete(weatherResult);
+    }
 
     public LiveData<WeatherResult> getLocation() {
         return location;

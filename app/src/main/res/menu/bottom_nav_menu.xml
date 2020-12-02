@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_mylocation"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_location_add"
         android:title="@string/title_mylocations" />
 
 

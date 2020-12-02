@@ -1,5 +1,6 @@
 package com.example.weatherapp.mylocation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -14,9 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.weatherapp.CustomForecastClick;
 import com.example.weatherapp.DialogFragmentAdd;
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherViewModel;
+import com.example.weatherapp.forecast.ForecastDetail;
 import com.example.weatherapp.home.HomeAdapter;
 
 import com.example.weatherapp.weather.WeatherResult;
@@ -26,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyLocationsFragment extends Fragment {
+public class MyLocationsFragment extends Fragment implements CustomForecastClick {
 
 
     private WeatherResult weatherResponse;
@@ -49,30 +52,41 @@ public class MyLocationsFragment extends Fragment {
 
         mRepositoryRecyclerView = view.findViewById(R.id.recyclerView);
         LocationAdapter locationAdapter = new LocationAdapter(getContext());
+        locationAdapter.setListener(this);
 
         mRepositoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mRepositoryRecyclerView.setAdapter(locationAdapter);
 
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
-        WeatherViewModel  weatherViewModel = provider.get(WeatherViewModel.class);
+        WeatherViewModel weatherViewModel = provider.get(WeatherViewModel.class);
 
-        weatherViewModel.getWeatherByCoordinates();
+//        weatherViewModel.getWeatherByCoordinates();
         weatherViewModel.getWeatherList().observe(requireActivity(), new Observer<List<WeatherResult>>() {
 
 
             @Override
             public void onChanged(List<WeatherResult> weatherResult) {
-                if(weatherResult != null){
-
+                if (weatherResult != null) {
 
 
                     locationAdapter.setCachedWeather(weatherResult);
 
 
-                }else{
+                } else {
                     Log.d("Response", "null");
                 }
+
+            }
+        });
+
+        weatherViewModel.getLocation().observe(requireActivity(), new Observer<WeatherResult>() {
+            @Override
+            public void onChanged(WeatherResult weatherResult) {
+
+                weatherViewModel.insert(weatherResult);
+
+                Log.d("Dialog", weatherResult.getCityObject().getName());
 
             }
         });
@@ -92,8 +106,21 @@ public class MyLocationsFragment extends Fragment {
     private void processFabClick() {
 
         DialogFragment dialogFragment = new DialogFragmentAdd(requireActivity());
-        dialogFragment.show(getChildFragmentManager(),"insert");
+        dialogFragment.show(getChildFragmentManager(), "insert");
 
 
+    }
+
+    @Override
+    public void onForecastClick(WeatherResult weatherResult) {
+        openForecastDetail(weatherResult);
+    }
+
+    private void openForecastDetail(WeatherResult weatherResult) {
+        Intent intent = new Intent(getActivity(), ForecastDetail.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Response", weatherResult);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

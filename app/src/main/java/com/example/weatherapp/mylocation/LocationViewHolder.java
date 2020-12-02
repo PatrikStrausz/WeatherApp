@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.weatherapp.CustomForecastClick;
 import com.example.weatherapp.DateFormatter;
+import com.example.weatherapp.OnForecastClick;
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherImages;
 import com.example.weatherapp.WeatherRepository;
@@ -30,6 +32,11 @@ public class LocationViewHolder extends RecyclerView.ViewHolder {
 
    private WeatherImages weatherImages;
 
+    private CustomForecastClick listener;
+
+    public void setListener(CustomForecastClick listener) {
+        this.listener = listener;
+    }
 
     public LocationViewHolder(@NonNull View view) {
         super(view);
@@ -56,6 +63,14 @@ public class LocationViewHolder extends RecyclerView.ViewHolder {
 
         weatherImages.setImage(weatherImage, weatherResult.getList().get(0).getWeatherList().get(0).getIcon(),context);
         weatherImages.setCardViewBackground(cardView, context, weatherResult.getList().get(0).getWeatherList().get(0).getIcon());
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onForecastClick(weatherResult);
+
+                }
+            });
         }
     }
 }

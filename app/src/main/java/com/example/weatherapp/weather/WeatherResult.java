@@ -2,6 +2,7 @@ package com.example.weatherapp.weather;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "weather_result")
+@Entity(tableName = "weather_result",indices = {@Index(value = {"id", "city"}, unique = true)})
 public class WeatherResult implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
