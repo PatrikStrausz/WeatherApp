@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.weatherapp.weather.WeatherResult;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -63,11 +64,11 @@ public class WeatherRepository {
         );
     }
 
-    public void getWeatherByCoordinates() {
+    public void getWeatherByCoordinates(LatLng coordinates) {
         Runnable fetchJsonRunnable = new Runnable() {
             @Override
             public void run() {
-                getCurrentWeatherByCoordinates();
+                getCurrentWeatherByCoordinates(coordinates);
             }
         };
 
@@ -97,7 +98,7 @@ public class WeatherRepository {
     }
 
 
-    void getCurrentWeatherByCoordinates() {
+    void getCurrentWeatherByCoordinates(LatLng coordinates) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(APIManager.API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -107,7 +108,7 @@ public class WeatherRepository {
 
 
         //Call<WeatherResult> call = service.getCurrentWeather(latitude,longitude, APIManager.API_ID);
-        Call<WeatherResult> call = service.getCurrentWeather("48.716385", "21.261074", APIManager.API_ID, APIManager.UNITS);
+        Call<WeatherResult> call = service.getCurrentWeather(String.valueOf(coordinates.latitude), String.valueOf(coordinates.longitude), APIManager.API_ID, APIManager.UNITS);
 
 
         call.enqueue(new Callback<WeatherResult>() {

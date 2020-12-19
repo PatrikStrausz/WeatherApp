@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.weatherapp.weather.WeatherResult;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -54,8 +55,8 @@ public class WeatherViewModel extends AndroidViewModel {
         return mRepos;
     }
 
-    public void getWeatherByCoordinates() {
-        repository.getWeatherByCoordinates();
+    public void getWeatherByCoordinates(LatLng coordinates) {
+        repository.getWeatherByCoordinates(coordinates);
     }
 
     public void getWeatherByCityName(String city) {
