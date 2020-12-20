@@ -4,29 +4,28 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.weatherapp.BuildConfig;
 import com.example.weatherapp.R;
+import com.example.weatherapp.WeatherDatabase;
 import com.example.weatherapp.weather.WeatherResult;
 import com.example.weatherapp.WeatherViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -34,19 +33,19 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
-public class HomeFragment extends Fragment  {
+public class HomeFragment extends Fragment {
 
     private Location location;
 
     private WeatherViewModel weatherViewModel;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     private static final int PERMISSION_CODE = 33;
@@ -62,7 +61,7 @@ public class HomeFragment extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-
+        swipeRefreshLayout = view.findViewById(R.id.linearLayout);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -75,18 +74,17 @@ public class HomeFragment extends Fragment  {
         weatherViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
 
-
         weatherViewModel.getRepos().observe(requireActivity(), new Observer<WeatherResult>() {
 
 
             @Override
             public void onChanged(WeatherResult weatherResult) {
-                if(weatherResult != null){
+                if (weatherResult != null) {
 
                     homeAdapter.setmAllRepositories(weatherResult);
 
 
-                }else{
+                } else {
                     Log.d("Response", "null");
                 }
 
@@ -94,20 +92,35 @@ public class HomeFragment extends Fragment  {
         });
 
 
+        if (checkPermissions()) {
+            getLastLocation();
+
+        } else {
+            requestPermissions();
 
 
-                if (checkPermissions()) {
-                    getLastLocation();
-                    updateMap();
-                } else {
-                    requestPermissions();
-                    updateMap();
-                }
+        }
+
+
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+
+                getLastLocation();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
 
 
         return view;
     }
+
+
 
     private void requestPermissions() {
         ActivityCompat.requestPermissions(getActivity(), new String[]{PERM}, PERMISSION_CODE);
@@ -125,9 +138,10 @@ public class HomeFragment extends Fragment  {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 getLastLocation();
+
             } else {
 
-                Snackbar.make(getView().findViewById(android.R.id.content), "permissions denied",
+                Snackbar.make(getActivity().findViewById(android.R.id.content), "permissions denied",
                         Snackbar.LENGTH_INDEFINITE)
                         .setAction("Go to settings", new View.OnClickListener() {
                             @Override
@@ -146,6 +160,8 @@ public class HomeFragment extends Fragment  {
         }
     }
 
+
+
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
         Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
@@ -154,31 +170,37 @@ public class HomeFragment extends Fragment  {
             public void onComplete(@NonNull Task<Location> task) {
                 if (task.isSuccessful()) {
                     location = task.getResult();
-                    updateMap();
+                    updateLocation();
+
 
 
                 }
+
             }
+
         });
     }
 
+    static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(2);
 
 
-    private void updateMap() {
+
+    private void updateLocation() {
 
         if (location == null) {
 
-            LatLng kosice = new LatLng(48.71395, 21.25808);
+            LatLng kosice = new LatLng(40.71395, 21.25808);
             weatherViewModel.getWeatherByCoordinates(kosice);
+
         } else {
 
 
             weatherViewModel.getWeatherByCoordinates(new LatLng(location.getLatitude(), location.getLongitude()));
         }
+
+
     }
-
-
-
 
 
 }

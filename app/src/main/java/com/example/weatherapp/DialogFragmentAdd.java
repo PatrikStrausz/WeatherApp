@@ -40,6 +40,8 @@ public class DialogFragmentAdd extends DialogFragment {
        ViewModelProvider provider = new ViewModelProvider(requireActivity());
         WeatherViewModel weatherViewModel = provider.get(WeatherViewModel.class);
 
+
+
         TextInputEditText editText = view.findViewById(R.id.edit_text);
 
         builder.setMessage("Insert city to add")

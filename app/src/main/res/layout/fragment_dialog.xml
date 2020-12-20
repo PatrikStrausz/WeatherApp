@@ -16,8 +16,8 @@
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="City name:"
-        android:text="sasaaassasas"
+        android:hint="City name"
+
         />
 
 

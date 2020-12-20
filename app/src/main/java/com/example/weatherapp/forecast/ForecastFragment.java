@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.weatherapp.OnForecastClick;
 import com.example.weatherapp.R;
@@ -27,8 +28,11 @@ public class ForecastFragment extends Fragment implements Serializable, OnForeca
 
 
     private WeatherViewModel weatherViewModel;
-    private WeatherResult weatherResponse;
     private RecyclerView mRepositoryRecyclerView;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    private ForecastAdapter forecastAdapter;
 
 
 
@@ -38,33 +42,47 @@ public class ForecastFragment extends Fragment implements Serializable, OnForeca
 
         View view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeLayout);
+
         mRepositoryRecyclerView = view.findViewById(R.id.recycler_view);
-        ForecastAdapter forecastAdapter = new ForecastAdapter(getContext());
+        forecastAdapter = new ForecastAdapter(getContext());
         forecastAdapter.setListener(this);
         mRepositoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRepositoryRecyclerView.setAdapter(forecastAdapter);
 
         weatherViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
-        weatherViewModel.getRepos().observe(requireActivity(), new Observer<WeatherResult>() {
 
+
+        getForecast();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getForecast();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+        return view;
+    }
+
+    private void getForecast(){
+        weatherViewModel.getRepos().observe(requireActivity(), new Observer<WeatherResult>() {
 
             @Override
             public void onChanged(WeatherResult weatherResult) {
                 if(weatherResult != null){
-                    weatherResponse = weatherResult;
                     forecastAdapter.setmAllRepositories(weatherResult);
 
 
-                    Log.d("Response", "onChanged: "+weatherResponse.getCityObject().getName());
+                    Log.d("Response", "onChanged: "+weatherResult.getCityObject().getName());
                 }else{
                     Log.d("Response", "null");
                 }
 
             }
         });
-
-
-        return view;
     }
 
 

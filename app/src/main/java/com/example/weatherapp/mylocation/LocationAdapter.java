@@ -1,6 +1,8 @@
 package com.example.weatherapp.mylocation;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,32 +13,53 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherapp.CustomForecastClick;
 import com.example.weatherapp.OnForecastClick;
 import com.example.weatherapp.R;
+import com.example.weatherapp.WeatherViewModel;
 import com.example.weatherapp.mylocation.LocationViewHolder;
 import com.example.weatherapp.weather.WeatherResult;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
-    private Context context;
+    private Activity context;
 
     private CustomForecastClick listener;
+
+    private WeatherResult mRecentlyDeletedItem;
+    private int mRecentlyDeletedItemPosition;
+
+    private  WeatherViewModel weatherViewModel;
+
+
 
     public void setListener(CustomForecastClick listener) {
         this.listener = listener;
     }
 
-    private List<WeatherResult> cachedWeather;
+    private List<WeatherResult> cachedWeather = new ArrayList<>();
 
     public void setCachedWeather(List<WeatherResult> cachedWeather) {
+
         this.cachedWeather = cachedWeather;
         notifyDataSetChanged();
     }
 
 
 
-    public LocationAdapter(Context context) {
+
+
+
+
+
+
+    public LocationAdapter(Activity context, WeatherViewModel weatherViewModel) {
         this.context = context;
+        this.weatherViewModel = weatherViewModel;
+
     }
 
     @NonNull
@@ -62,13 +85,40 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (cachedWeather == null) {
-            return 0;
-        }
+
         return cachedWeather.size();
 
     }
 
+    public void deleteItem(int position) {
+        mRecentlyDeletedItem = cachedWeather.get(position);
+        mRecentlyDeletedItemPosition = position;
+        weatherViewModel.delete(cachedWeather.get(position));
+        cachedWeather.remove(position);
+
+        notifyItemRemoved(position);
+        showUndoSnackbar();
+    }
+
+    private void showUndoSnackbar() {
+
+        View view = context.findViewById(R.id.coordinator_layout);
+        Snackbar snackbar = Snackbar.make(view, "City has been deleted",
+                Snackbar.LENGTH_LONG);
+        snackbar.setAction("Undo", v -> undoDelete());
+        snackbar.show();
+    }
+
+    private void undoDelete() {
+        cachedWeather.add(mRecentlyDeletedItemPosition,
+                mRecentlyDeletedItem);
+        weatherViewModel.insert(mRecentlyDeletedItem);
+        notifyItemInserted(mRecentlyDeletedItemPosition);
+    }
+
+    public Activity getContext() {
+        return context;
+    }
 
 
 }
