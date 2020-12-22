@@ -1,5 +1,6 @@
 package com.example.weatherapp;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.mylocation.LocationAdapter;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
 public class SwipeToDelete extends ItemTouchHelper.SimpleCallback {
 
    private LocationAdapter locationAdapter;
@@ -20,13 +23,16 @@ public class SwipeToDelete extends ItemTouchHelper.SimpleCallback {
     private Drawable icon;
     private final ColorDrawable background;
 
+    private Context context;
 
-    public SwipeToDelete(LocationAdapter adapter) {
+
+    public SwipeToDelete(LocationAdapter adapter, Context context) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         locationAdapter = adapter;
         icon = ContextCompat.getDrawable(locationAdapter.getContext(),
                 R.drawable.ic_delete);
         background = new ColorDrawable(Color.RED);
+        this.context = context;
     }
 
 
@@ -43,23 +49,16 @@ public class SwipeToDelete extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        View itemView = viewHolder.itemView;
-        int backgroundCornerOffset = 20;
 
+        new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addSwipeLeftBackgroundColor(ContextCompat.getColor(context, R.color.design_default_color_error))
+                .addSwipeLeftActionIcon(R.drawable.ic_delete)
+                .addSwipeRightBackgroundColor(ContextCompat.getColor(context, R.color.design_default_color_error))
+                .addSwipeRightActionIcon(R.drawable.ic_delete)
+                .create()
+                .decorate();
 
-        if (dX > 0) { // Swiping to the right
-            background.setBounds(itemView.getLeft(), itemView.getTop(),
-                    itemView.getLeft() + ((int) dX) + backgroundCornerOffset,
-                    itemView.getBottom());
-
-        } else if (dX < 0) { // Swiping to the left
-            background.setBounds(itemView.getRight() + ((int) dX) - backgroundCornerOffset,
-                    itemView.getTop(), itemView.getRight(), itemView.getBottom());
-        } else { // view is unSwiped
-            background.setBounds(0, 0, 0, 0);
-        }
-        background.draw(c);
-
+        super.onChildDraw(c, recyclerView, viewHolder, dX,dY,actionState, isCurrentlyActive);
 
 
     }

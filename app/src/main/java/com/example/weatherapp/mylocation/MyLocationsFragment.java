@@ -69,7 +69,7 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
         mRepositoryRecyclerView.setAdapter(locationAdapter);
 
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDelete(locationAdapter));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDelete(locationAdapter, getContext()));
         itemTouchHelper.attachToRecyclerView(mRepositoryRecyclerView);
 
 //        weatherViewModel.getWeatherByCoordinates();
