@@ -76,7 +76,8 @@ public class ForecastFragment extends Fragment implements Serializable, OnForeca
                     forecastAdapter.setmAllRepositories(weatherResult);
 
 
-                    Log.d("Response", "onChanged: "+weatherResult.getCityObject().getName());
+
+//                    Log.d("Response", "onChanged: "+weatherResult.getCityObject().getName());
                 }else{
                     Log.d("Response", "null");
                 }

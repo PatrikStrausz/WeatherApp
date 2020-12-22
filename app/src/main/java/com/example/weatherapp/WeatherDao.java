@@ -6,7 +6,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
+import com.example.weatherapp.weather.City;
 import com.example.weatherapp.weather.WeatherResult;
 
 import java.util.List;
@@ -14,8 +16,11 @@ import java.util.List;
 @Dao
 public interface WeatherDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WeatherResult weatherResult);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertCity(City city);
 
     @Query("SELECT * from weather_result ")
     LiveData<List<WeatherResult>> getAllWeatherResults();
@@ -25,6 +30,9 @@ public interface WeatherDao {
 
     @Delete
     void deleteWeatherResult(WeatherResult weatherResult);
+
+    @Delete
+    void deleteCity(City city);
 
 
 }

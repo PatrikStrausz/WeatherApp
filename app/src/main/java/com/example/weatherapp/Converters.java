@@ -3,8 +3,9 @@ package com.example.weatherapp;
 import androidx.room.TypeConverter;
 
 import com.example.weatherapp.weather.City;
+import com.example.weatherapp.weather.Coord;
 import com.example.weatherapp.weather.WeatherList;
-import com.example.weatherapp.weather.WeatherResult;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -51,5 +52,25 @@ public class Converters {
         Gson gson = new Gson();
         Type type = new TypeToken<City>(){}.getType();
         return gson.fromJson(city, type);
+    }
+
+    @TypeConverter
+    public String fromCoord(Coord coord){
+        if(coord == null){
+            return null;
+        }
+        Gson gson = new Gson();
+        Type type = new TypeToken<Coord>(){}.getType();
+        return gson.toJson(coord, type);
+    }
+
+    @TypeConverter
+    public Coord toCoord(String coord){
+        if(coord == null){
+            return null;
+        }
+        Gson gson = new Gson();
+        Type type = new TypeToken<Coord>(){}.getType();
+        return gson.fromJson(coord, type);
     }
 }

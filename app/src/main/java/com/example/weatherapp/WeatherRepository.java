@@ -48,10 +48,11 @@ public class WeatherRepository {
     }
 
 
-    void delete(WeatherResult weatherResult){
+    void delete(WeatherResult weatherResult) {
         WeatherDatabase.databaseWriteExecutor.execute(
                 () -> {
                     weatherDao.deleteWeatherResult(weatherResult);
+                    weatherDao.deleteCity(weatherResult.getCityObject());
                 }
         );
     }
@@ -60,9 +61,11 @@ public class WeatherRepository {
         WeatherDatabase.databaseWriteExecutor.execute(
                 () -> {
                     weatherDao.insert(weatherResult);
+                    weatherDao.insertCity(weatherResult.getCityObject());
                 }
         );
     }
+
 
     public void getWeatherByCoordinates(LatLng coordinates) {
         Runnable fetchJsonRunnable = new Runnable() {
@@ -146,7 +149,6 @@ public class WeatherRepository {
                 .build();
 
         APIManager service = retrofit.create(APIManager.class);
-
 
 
         Call<WeatherResult> call = service.getCurrentWeatherByCityName(cityName, APIManager.API_ID, APIManager.UNITS);

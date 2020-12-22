@@ -2,6 +2,8 @@ package com.example.weatherapp.weather;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -13,12 +15,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "weather_result",indices = {@Index(value = {"id", "city"}, unique = true)})
+@Entity(tableName = "weather_result",indices = {@Index(value = {"id"}, unique = true)})
 public class WeatherResult implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int id;
+
+
 
     @ColumnInfo(name = "cod")
     @SerializedName("cod")
@@ -37,10 +41,12 @@ public class WeatherResult implements Serializable {
     @TypeConverters({Converters.class})
     private List< WeatherList > list = new ArrayList<>();
 
-    @ColumnInfo(name = "city")
+
+
+
     @SerializedName("city")
     @TypeConverters({Converters.class})
-    private City CityObject;
+    private City cityObject;
 
     public WeatherResult() {
     }
@@ -85,11 +91,17 @@ public class WeatherResult implements Serializable {
         this.list = list;
     }
 
+
+
     public City getCityObject() {
-        return CityObject;
+        return cityObject;
     }
 
     public void setCityObject(City cityObject) {
-        CityObject = cityObject;
+        this.cityObject = cityObject;
     }
+
+
+
+
 }

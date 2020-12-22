@@ -105,6 +105,7 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
 
 
 
+
                 Log.d("Dialog", String.valueOf(locationAdapter.getItemCount()));
 
             }

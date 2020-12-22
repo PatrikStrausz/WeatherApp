@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.weatherapp.weather.City;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -42,6 +43,8 @@ public class WeatherViewModel extends AndroidViewModel {
     public void insert(WeatherResult weatherResult){
         repository.insert(weatherResult);
     }
+
+
 
     public void delete(WeatherResult weatherResult){
         repository.delete(weatherResult);
