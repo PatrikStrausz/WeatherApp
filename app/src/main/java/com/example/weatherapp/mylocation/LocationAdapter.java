@@ -25,14 +25,14 @@ import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
-    private Activity context;
+    private final Activity context;
 
     private CustomForecastClick listener;
 
     private WeatherResult mRecentlyDeletedItem;
     private int mRecentlyDeletedItemPosition;
 
-    private  WeatherViewModel weatherViewModel;
+    private final WeatherViewModel weatherViewModel;
 
 
 
@@ -47,13 +47,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
         this.cachedWeather = cachedWeather;
         notifyDataSetChanged();
     }
-
-
-
-
-
-
-
 
 
     public LocationAdapter(Activity context, WeatherViewModel weatherViewModel) {

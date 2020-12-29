@@ -12,7 +12,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-@Entity(tableName = "city_result", indices = {@Index(value = {"id", "name", "country"}, unique = true)})
+@Entity(tableName = "city_result", indices = {@Index(value = {"id", "name", "country"}, unique = true)}
+
+       )
 public class City implements Serializable {
 
     @PrimaryKey
@@ -21,13 +23,14 @@ public class City implements Serializable {
     private int id;
 
 
+
     @ColumnInfo(name = "result_id")
     @ForeignKey(entity = WeatherResult.class,
             parentColumns = "id",
             childColumns = "result_id",
             onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE,
-    deferred = true)
+            onUpdate = ForeignKey.CASCADE
+    )
     private int result_id;
 
     @ColumnInfo(name = "name")
@@ -58,6 +61,10 @@ public class City implements Serializable {
     @ColumnInfo(name = "sunset")
     @SerializedName("sunset")
     private int sunset;
+
+    public City(int id) {
+        this.result_id = id;
+    }
 
 
     public int getId() {

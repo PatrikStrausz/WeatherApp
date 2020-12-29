@@ -24,6 +24,7 @@ import com.example.weatherapp.WeatherViewModel;
 import com.example.weatherapp.forecast.ForecastDetail;
 import com.example.weatherapp.home.HomeAdapter;
 
+import com.example.weatherapp.weather.City;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -79,15 +80,8 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
             @Override
             public void onChanged(List<WeatherResult> weatherResult) {
                 if (weatherResult != null) {
-
                         locationAdapter.setCachedWeather(weatherResult);
 
-                    for (WeatherResult weatherResult1: weatherResult){
-                        Log.d("TAG", weatherResult1.getCityObject().getName());
-                    }
-
-                } else {
-                    Log.d("Response", "null");
                 }
 
             }
@@ -97,17 +91,8 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
             @Override
             public void onChanged(WeatherResult weatherResult) {
 
+                    weatherResult.setCity_id(weatherResult.getCityObject().getId());
                     weatherViewModel.insert(weatherResult);
-
-
-
-
-
-
-
-
-                Log.d("Dialog", String.valueOf(locationAdapter.getItemCount()));
-
             }
         });
 

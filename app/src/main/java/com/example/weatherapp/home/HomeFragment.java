@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -74,20 +75,12 @@ public class HomeFragment extends Fragment {
         weatherViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
 
-        weatherViewModel.getRepos().observe(requireActivity(), new Observer<WeatherResult>() {
 
-
+        weatherViewModel.getWeatherList().observe(requireActivity(), new Observer<List<WeatherResult>>() {
             @Override
-            public void onChanged(WeatherResult weatherResult) {
-                if (weatherResult != null) {
+            public void onChanged(List<WeatherResult> weatherResults) {
 
-                    homeAdapter.setmAllRepositories(weatherResult);
-
-
-                } else {
-                    Log.d("Response", "null");
-                }
-
+                homeAdapter.setmAllRepositories(weatherResults);
             }
         });
 
@@ -137,6 +130,7 @@ public class HomeFragment extends Fragment {
         if (requestCode == PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+
                 getLastLocation();
 
             } else {
@@ -181,16 +175,13 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(2);
-
-
 
     private void updateLocation() {
 
         if (location == null) {
 
             LatLng kosice = new LatLng(40.71395, 21.25808);
+
             weatherViewModel.getWeatherByCoordinates(kosice);
 
         } else {

@@ -15,14 +15,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "weather_result",indices = {@Index(value = {"id"}, unique = true)})
+@Entity(tableName = "weather_result",indices = {@Index(value = {"id","city_id"}, unique = true)})
 public class WeatherResult implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int id;
-
-
 
     @ColumnInfo(name = "cod")
     @SerializedName("cod")
@@ -43,12 +41,15 @@ public class WeatherResult implements Serializable {
 
 
 
+    @ColumnInfo(name="city_id")
+    private int city_id;
 
     @SerializedName("city")
     @TypeConverters({Converters.class})
     private City cityObject;
 
     public WeatherResult() {
+
     }
 
     public int getId() {
@@ -91,7 +92,13 @@ public class WeatherResult implements Serializable {
         this.list = list;
     }
 
+    public int getCity_id() {
+        return city_id;
+    }
 
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
 
     public City getCityObject() {
         return cityObject;

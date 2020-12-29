@@ -18,20 +18,17 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class SwipeToDelete extends ItemTouchHelper.SimpleCallback {
 
-   private LocationAdapter locationAdapter;
+   private final LocationAdapter locationAdapter;
 
-    private Drawable icon;
-    private final ColorDrawable background;
-
-    private Context context;
+    private final Context context;
 
 
     public SwipeToDelete(LocationAdapter adapter, Context context) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         locationAdapter = adapter;
-        icon = ContextCompat.getDrawable(locationAdapter.getContext(),
+        ContextCompat.getDrawable(locationAdapter.getContext(),
                 R.drawable.ic_delete);
-        background = new ColorDrawable(Color.RED);
+        new ColorDrawable(Color.RED);
         this.context = context;
     }
 

@@ -1,5 +1,6 @@
 package com.example.weatherapp.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,72 +17,72 @@ import com.example.weatherapp.weather.WeatherResult;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView cityNameTextView;
-    private TextView currentTemperatureTextView;
-    private TextView currentWeatherTextView;
-    private TextView dayTextView;
-    private TextView monthTextView;
-    private TextView timeTextView;
+    private final TextView cityNameTextView;
+    private final TextView currentTemperatureTextView;
+    private final TextView currentWeatherTextView;
+    private final TextView dayTextView;
+    private final TextView monthTextView;
+    private final TextView timeTextView;
 
-    private TextView todayTempTextView;
-    private TextView secondTemp;
-    private TextView thirdTemp;
-    private TextView fourthTemp;
-    private TextView fifthTemp;
-    private TextView sixthTemp;
+    private final TextView todayTempTextView;
+    private final TextView secondTemp;
+    private final TextView thirdTemp;
+    private final TextView fourthTemp;
+    private final TextView fifthTemp;
+    private final TextView sixthTemp;
 
-    private TextView firstDateTxtView;
-    private TextView secondDateTxtView;
-    private TextView thirdDateTxtView;
-    private TextView fouthDateTxtView;
-    private TextView fifthDateTxtView;
-    private TextView sixthDateTxtView;
+    private final TextView firstDateTxtView;
+    private final TextView secondDateTxtView;
+    private final TextView thirdDateTxtView;
+    private final TextView fouthDateTxtView;
+    private final TextView fifthDateTxtView;
+    private final TextView sixthDateTxtView;
 
-    private TextView windSpeedTextView;
-    private TextView feelsLikeTextView;
-    private TextView humidityTextView;
-    private TextView visibilityTextView;
-    private TextView pressureTextView;
-    private TextView tempMinTextView;
-    private TextView tempMaxTextView;
-    private TextView windDirectionTextView;
+    private final TextView windSpeedTextView;
+    private final TextView feelsLikeTextView;
+    private final TextView humidityTextView;
+    private final TextView visibilityTextView;
+    private final TextView pressureTextView;
+    private final TextView tempMinTextView;
+    private final TextView tempMaxTextView;
+    private final TextView windDirectionTextView;
 
-    private TextView firstHourTextView;
-    private TextView secondHourTextView;
-    private TextView thirdHourTextView;
-    private TextView fourthHourTextView;
-    private TextView fifthHourTextView;
-    private TextView sixthHourTextView;
-    private TextView seventhHourTextView;
+    private final TextView firstHourTextView;
+    private final TextView secondHourTextView;
+    private final TextView thirdHourTextView;
+    private final TextView fourthHourTextView;
+    private final TextView fifthHourTextView;
+    private final TextView sixthHourTextView;
+    private final TextView seventhHourTextView;
 
-    private TextView firstHourTemp;
-    private TextView secondHourTemp;
-    private TextView thirdHourTemp;
-    private TextView fourthHourTemp;
-    private TextView fifthHourTemp;
-    private TextView sixthHourTemp;
-    private TextView seventhHourTemp;
+    private final TextView firstHourTemp;
+    private final TextView secondHourTemp;
+    private final TextView thirdHourTemp;
+    private final TextView fourthHourTemp;
+    private final TextView fifthHourTemp;
+    private final TextView sixthHourTemp;
+    private final TextView seventhHourTemp;
 
-    private ImageView todayImageWeather;
-    private ImageView secondImageView;
-    private ImageView thirdImageView;
-    private ImageView fourthImageView;
-    private ImageView fifthImageView;
-    private ImageView sixthImageView;
+    private final ImageView todayImageWeather;
+    private final ImageView secondImageView;
+    private final ImageView thirdImageView;
+    private final ImageView fourthImageView;
+    private final ImageView fifthImageView;
+    private final ImageView sixthImageView;
 
-    private ImageView firstHourImage;
-    private ImageView secondHourImage;
-    private ImageView thirdHourImage;
-    private ImageView fourthHourImage;
-    private ImageView fifthHourImage;
-    private ImageView sixthHourImage;
-    private ImageView seventhHourImage;
+    private final ImageView firstHourImage;
+    private final ImageView secondHourImage;
+    private final ImageView thirdHourImage;
+    private final ImageView fourthHourImage;
+    private final ImageView fifthHourImage;
+    private final ImageView sixthHourImage;
+    private final ImageView seventhHourImage;
 
-    private DateFormatter dateFormatter;
+    private final DateFormatter dateFormatter;
 
-    private WeatherImages weatherImages;
+    private final WeatherImages weatherImages;
 
-    private LinearLayout linearLayout;
+    private final LinearLayout linearLayout;
 
 
 
@@ -159,11 +160,12 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         seventhHourTemp = view.findViewById(R.id.seventhHourTemp);
     }
 
+    @SuppressLint("SetTextI18n")
     public void bind(WeatherResult weatherResult, Context context) {
 
 
         cityNameTextView.setText(weatherResult.getCityObject().getName());
-        currentTemperatureTextView.setText(String.valueOf(Math.round(weatherResult.getList().get(0).getMainList().getTemp())) + "°C");
+        currentTemperatureTextView.setText(Math.round(weatherResult.getList().get(0).getMainList().getTemp()) + "°C");
         currentWeatherTextView.setText(weatherResult.getList().get(0).getWeatherList().get(0).getMain());
 
             weatherImages.setBackground(dateFormatter.getHour(weatherResult.getList().get(0).getDt_txt()),linearLayout,context);
@@ -178,12 +180,12 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         weatherImages.setImage(sixthImageView, weatherResult.getList().get(39).getWeatherList().get(0).getIcon(), context);
 
 
-        todayTempTextView.setText(String.valueOf(Math.round(weatherResult.getList().get(0).getMainList().getTemp_max())) + "°");
-        secondTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(8).getMainList().getTemp_max())) + "°");
-        thirdTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(16).getMainList().getTemp_max())) + "°");
-        fourthTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(24).getMainList().getTemp_max())) + "°");
-        fifthTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(32).getMainList().getTemp_max())) + "°");
-        sixthTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(39).getMainList().getTemp_max())) + "°");
+        todayTempTextView.setText(Math.round(weatherResult.getList().get(0).getMainList().getTemp_max()) + "°");
+        secondTemp.setText(Math.round(weatherResult.getList().get(8).getMainList().getTemp_max()) + "°");
+        thirdTemp.setText(Math.round(weatherResult.getList().get(16).getMainList().getTemp_max()) + "°");
+        fourthTemp.setText(Math.round(weatherResult.getList().get(24).getMainList().getTemp_max()) + "°");
+        fifthTemp.setText(Math.round(weatherResult.getList().get(32).getMainList().getTemp_max()) + "°");
+        sixthTemp.setText(Math.round(weatherResult.getList().get(39).getMainList().getTemp_max()) + "°");
 
 
         firstDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(0).getDt_txt()));
@@ -194,14 +196,14 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         sixthDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(39).getDt_txt()));
 
 
-        windSpeedTextView.setText("Wind speed\n" + String.valueOf(+Math.round(weatherResult.getList().get(0).getWindList().getSpeed())) + "km/h");
-        feelsLikeTextView.setText("Feels like\n" + String.valueOf(Math.round(weatherResult.getList().get(0).getMainList().getFeels_like())) + "°");
-        humidityTextView.setText("Humidity\n" + String.valueOf(weatherResult.getList().get(0).getMainList().getHumidity()) + "%");
-        visibilityTextView.setText("Visibility\n" + String.valueOf(weatherResult.getList().get(0).getVisibility() / 1000) + "km");
-        pressureTextView.setText("Pressure\n" + String.valueOf(weatherResult.getList().get(0).getMainList().getPressure()) + "hPa");
-        tempMinTextView.setText("Min temperature\n" + String.valueOf(Math.round(weatherResult.getList().get(0).getMainList().getTemp_min())) + "°");
-        tempMaxTextView.setText("Max temperature\n" + String.valueOf(Math.round(weatherResult.getList().get(0).getMainList().getTemp_max())) + "°");
-        windDirectionTextView.setText("Wind direction\n" + String.valueOf(weatherResult.getList().get(0).getWindList().getDeg()));
+        windSpeedTextView.setText("Wind speed\n" + +Math.round(weatherResult.getList().get(0).getWindList().getSpeed()) + "km/h");
+        feelsLikeTextView.setText("Feels like\n" + Math.round(weatherResult.getList().get(0).getMainList().getFeels_like()) + "°");
+        humidityTextView.setText("Humidity\n" + weatherResult.getList().get(0).getMainList().getHumidity() + "%");
+        visibilityTextView.setText("Visibility\n" + weatherResult.getList().get(0).getVisibility() / 1000 + "km");
+        pressureTextView.setText("Pressure\n" + weatherResult.getList().get(0).getMainList().getPressure() + "hPa");
+        tempMinTextView.setText("Min temperature\n" + Math.round(weatherResult.getList().get(0).getMainList().getTemp_min()) + "°");
+        tempMaxTextView.setText("Max temperature\n" + Math.round(weatherResult.getList().get(0).getMainList().getTemp_max()) + "°");
+        windDirectionTextView.setText("Wind direction\n" + weatherResult.getList().get(0).getWindList().getDeg());
 
         firstHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(0).getDt_txt()));
         secondHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(1).getDt_txt()));
@@ -221,13 +223,13 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         weatherImages.setImage(seventhHourImage, weatherResult.getList().get(6).getWeatherList().get(0).getIcon(), context);
 
 
-        firstHourTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(0).getMainList().getTemp())) + "°");
-        secondHourTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(1).getMainList().getTemp())) + "°");
-        thirdHourTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(2).getMainList().getTemp())) + "°");
-        fourthHourTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(3).getMainList().getTemp())) + "°");
-        fifthHourTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(4).getMainList().getTemp())) + "°");
-        sixthHourTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(5).getMainList().getTemp())) + "°");
-        seventhHourTemp.setText(String.valueOf(Math.round(weatherResult.getList().get(6).getMainList().getTemp())) + "°");
+        firstHourTemp.setText(Math.round(weatherResult.getList().get(0).getMainList().getTemp()) + "°");
+        secondHourTemp.setText(Math.round(weatherResult.getList().get(1).getMainList().getTemp()) + "°");
+        thirdHourTemp.setText(Math.round(weatherResult.getList().get(2).getMainList().getTemp()) + "°");
+        fourthHourTemp.setText(Math.round(weatherResult.getList().get(3).getMainList().getTemp()) + "°");
+        fifthHourTemp.setText(Math.round(weatherResult.getList().get(4).getMainList().getTemp()) + "°");
+        sixthHourTemp.setText(Math.round(weatherResult.getList().get(5).getMainList().getTemp()) + "°");
+        seventhHourTemp.setText(Math.round(weatherResult.getList().get(6).getMainList().getTemp()) + "°");
 
 
         dateFormatter.getCurrentTime(dayTextView, monthTextView, timeTextView);

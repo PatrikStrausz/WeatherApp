@@ -22,7 +22,13 @@ public interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCity(City city);
 
-    @Query("SELECT * from weather_result ")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertResultAndCity(WeatherResult weatherResult,City city);
+
+    @Delete
+    void deleteResultAndCity(WeatherResult weatherResult,City city);
+
+    @Query("SELECT  * from weather_result")
     LiveData<List<WeatherResult>> getAllWeatherResults();
 
     @Query("DELETE FROM weather_result")

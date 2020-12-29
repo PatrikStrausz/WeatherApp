@@ -51,8 +51,10 @@ public class WeatherRepository {
     void delete(WeatherResult weatherResult) {
         WeatherDatabase.databaseWriteExecutor.execute(
                 () -> {
-                    weatherDao.deleteWeatherResult(weatherResult);
-                    weatherDao.deleteCity(weatherResult.getCityObject());
+//                    weatherDao.deleteWeatherResult(weatherResult);
+//                    weatherDao.deleteCity(weatherResult.getCityObject());
+
+                    weatherDao.deleteResultAndCity(weatherResult,weatherResult.getCityObject());
                 }
         );
     }
@@ -60,8 +62,10 @@ public class WeatherRepository {
     void insert(WeatherResult weatherResult) {
         WeatherDatabase.databaseWriteExecutor.execute(
                 () -> {
-                    weatherDao.insert(weatherResult);
-                    weatherDao.insertCity(weatherResult.getCityObject());
+//                    weatherDao.insert(weatherResult);
+//                    weatherDao.insertCity(weatherResult.getCityObject());
+
+                    weatherDao.insertResultAndCity(weatherResult, weatherResult.getCityObject());
                 }
         );
     }
