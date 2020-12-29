@@ -12,17 +12,18 @@ import com.example.weatherapp.OnForecastClick;
 import com.example.weatherapp.R;
 import com.example.weatherapp.weather.WeatherResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     private Context context;
 
-    private List<WeatherResult> mAllRepositories;
+    private List<WeatherResult> mAllRepositories = new ArrayList<>();
 
 
-    public void setmAllRepositories(List<WeatherResult> mAllRepositories) {
-        this.mAllRepositories = mAllRepositories;
+    public void setmAllRepositories(WeatherResult weatherResult) {
+        this.mAllRepositories.add(weatherResult);
         notifyDataSetChanged();
     }
 
@@ -50,10 +51,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     @Override
     public int getItemCount() {
-        if(mAllRepositories !=null){
-            return mAllRepositories.size();
-        }else{
+        if(mAllRepositories ==null){
             return 0;
+
+        }else{
+            return mAllRepositories.size();
         }
 
     }
