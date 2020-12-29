@@ -15,7 +15,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "weather_result",indices = {@Index(value = {"id","city_id"}, unique = true)})
+@Entity(tableName = "weather_result",indices = {@Index(value = {"id","city_id"}, unique = true)},
+foreignKeys =
+
+        @ForeignKey(entity = WeatherResult.class,
+        parentColumns = "id",
+        childColumns = "city_id",
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE,
+                deferred = true
+))
 public class WeatherResult implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
@@ -38,7 +47,6 @@ public class WeatherResult implements Serializable {
     @SerializedName("list")
     @TypeConverters({Converters.class})
     private List< WeatherList > list = new ArrayList<>();
-
 
 
     @ColumnInfo(name="city_id")

@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {WeatherResult.class, City.class}, version = 1, exportSchema = false)
+@Database(entities = {WeatherResult.class, City.class,ResultWithCity.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class WeatherDatabase extends RoomDatabase {
 
@@ -55,7 +55,7 @@ public abstract class WeatherDatabase extends RoomDatabase {
 
 
 
-//
+
 
             });
         }

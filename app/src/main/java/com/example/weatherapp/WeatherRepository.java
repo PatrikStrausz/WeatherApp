@@ -66,6 +66,8 @@ public class WeatherRepository {
 //                    weatherDao.insertCity(weatherResult.getCityObject());
 
                     weatherDao.insertResultAndCity(weatherResult, weatherResult.getCityObject());
+
+//                    weatherDao.insertResultWithCity(new ResultWithCity(weatherResult,weatherResult.getCityObject()));
                 }
         );
     }

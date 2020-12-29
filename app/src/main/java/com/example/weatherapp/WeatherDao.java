@@ -34,11 +34,8 @@ public interface WeatherDao {
     @Query("DELETE FROM weather_result")
     void deleteAll();
 
-    @Delete
-    void deleteWeatherResult(WeatherResult weatherResult);
 
-    @Delete
-    void deleteCity(City city);
+
 
 
 }
