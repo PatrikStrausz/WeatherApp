@@ -42,6 +42,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         holder.bind(mAllRepositories, context);
 
+
     }
 
     @Override

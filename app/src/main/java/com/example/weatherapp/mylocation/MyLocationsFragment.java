@@ -135,10 +135,10 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
     }
 
     private void openForecastDetail(WeatherResult weatherResult) {
-        Intent intent = new Intent(getActivity(), MyLocationDetails.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("Response", weatherResult);
-//        intent.putExtras(bundle);
+        Intent intent = new Intent(getActivity(), ForecastDetail.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Response", weatherResult);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

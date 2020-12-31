@@ -17,7 +17,7 @@ import com.example.weatherapp.weather.WeatherResult;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView cityNameTextView;
+    public  TextView cityNameTextView;
     private final TextView currentTemperatureTextView;
     private final TextView currentWeatherTextView;
     private final TextView dayTextView;
@@ -173,27 +173,27 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
 
 
         weatherImages.setImage(todayImageWeather, weatherResult.getList().get(0).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(secondImageView, weatherResult.getList().get(8).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(thirdImageView, weatherResult.getList().get(16).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(fourthImageView, weatherResult.getList().get(24).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(fifthImageView, weatherResult.getList().get(32).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(sixthImageView, weatherResult.getList().get(39).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(secondImageView, weatherResult.getList().get(8).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(thirdImageView, weatherResult.getList().get(16).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(fourthImageView, weatherResult.getList().get(24).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(fifthImageView, weatherResult.getList().get(32).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(sixthImageView, weatherResult.getList().get(39).getWeatherList().get(0).getIcon(), context);
 //
 
         todayTempTextView.setText(Math.round(weatherResult.getList().get(0).getMainList().getTemp_max()) + "°");
-//        secondTemp.setText(Math.round(weatherResult.getList().get(8).getMainList().getTemp_max()) + "°");
-//        thirdTemp.setText(Math.round(weatherResult.getList().get(16).getMainList().getTemp_max()) + "°");
-//        fourthTemp.setText(Math.round(weatherResult.getList().get(24).getMainList().getTemp_max()) + "°");
-//        fifthTemp.setText(Math.round(weatherResult.getList().get(32).getMainList().getTemp_max()) + "°");
-//        sixthTemp.setText(Math.round(weatherResult.getList().get(39).getMainList().getTemp_max()) + "°");
+        secondTemp.setText(Math.round(weatherResult.getList().get(8).getMainList().getTemp_max()) + "°");
+        thirdTemp.setText(Math.round(weatherResult.getList().get(16).getMainList().getTemp_max()) + "°");
+        fourthTemp.setText(Math.round(weatherResult.getList().get(24).getMainList().getTemp_max()) + "°");
+        fifthTemp.setText(Math.round(weatherResult.getList().get(32).getMainList().getTemp_max()) + "°");
+        sixthTemp.setText(Math.round(weatherResult.getList().get(39).getMainList().getTemp_max()) + "°");
 
 
         firstDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(0).getDt_txt()));
-//        secondDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(8).getDt_txt()));
-//        thirdDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(16).getDt_txt()));
-//        fouthDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(24).getDt_txt()));
-//        fifthDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(32).getDt_txt()));
-//        sixthDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(39).getDt_txt()));
+        secondDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(8).getDt_txt()));
+        thirdDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(16).getDt_txt()));
+        fouthDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(24).getDt_txt()));
+        fifthDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(32).getDt_txt()));
+        sixthDateTxtView.setText(dateFormatter.getDay(weatherResult.getList().get(39).getDt_txt()));
 
 
         windSpeedTextView.setText("Wind speed\n" + +Math.round(weatherResult.getList().get(0).getWindList().getSpeed()) + "km/h");
@@ -206,30 +206,30 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         windDirectionTextView.setText("Wind direction\n" + weatherResult.getList().get(0).getWindList().getDeg());
 
         firstHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(0).getDt_txt()));
-//        secondHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(1).getDt_txt()));
-//        thirdHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(2).getDt_txt()));
-//        fourthHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(3).getDt_txt()));
-//        fifthHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(4).getDt_txt()));
-//        sixthHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(5).getDt_txt()));
-//        seventhHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(6).getDt_txt()));
+        secondHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(1).getDt_txt()));
+        thirdHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(2).getDt_txt()));
+        fourthHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(3).getDt_txt()));
+        fifthHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(4).getDt_txt()));
+        sixthHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(5).getDt_txt()));
+        seventhHourTextView.setText(dateFormatter.getHour(weatherResult.getList().get(6).getDt_txt()));
 
 
         weatherImages.setImage(firstHourImage, weatherResult.getList().get(0).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(secondHourImage, weatherResult.getList().get(1).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(thirdHourImage, weatherResult.getList().get(2).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(fourthHourImage, weatherResult.getList().get(3).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(fifthHourImage, weatherResult.getList().get(4).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(sixthHourImage, weatherResult.getList().get(5).getWeatherList().get(0).getIcon(), context);
-//        weatherImages.setImage(seventhHourImage, weatherResult.getList().get(6).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(secondHourImage, weatherResult.getList().get(1).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(thirdHourImage, weatherResult.getList().get(2).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(fourthHourImage, weatherResult.getList().get(3).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(fifthHourImage, weatherResult.getList().get(4).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(sixthHourImage, weatherResult.getList().get(5).getWeatherList().get(0).getIcon(), context);
+        weatherImages.setImage(seventhHourImage, weatherResult.getList().get(6).getWeatherList().get(0).getIcon(), context);
 //
 
         firstHourTemp.setText(Math.round(weatherResult.getList().get(0).getMainList().getTemp()) + "°");
-//        secondHourTemp.setText(Math.round(weatherResult.getList().get(1).getMainList().getTemp()) + "°");
-//        thirdHourTemp.setText(Math.round(weatherResult.getList().get(2).getMainList().getTemp()) + "°");
-//        fourthHourTemp.setText(Math.round(weatherResult.getList().get(3).getMainList().getTemp()) + "°");
-//        fifthHourTemp.setText(Math.round(weatherResult.getList().get(4).getMainList().getTemp()) + "°");
-//        sixthHourTemp.setText(Math.round(weatherResult.getList().get(5).getMainList().getTemp()) + "°");
-//        seventhHourTemp.setText(Math.round(weatherResult.getList().get(6).getMainList().getTemp()) + "°");
+        secondHourTemp.setText(Math.round(weatherResult.getList().get(1).getMainList().getTemp()) + "°");
+        thirdHourTemp.setText(Math.round(weatherResult.getList().get(2).getMainList().getTemp()) + "°");
+        fourthHourTemp.setText(Math.round(weatherResult.getList().get(3).getMainList().getTemp()) + "°");
+        fifthHourTemp.setText(Math.round(weatherResult.getList().get(4).getMainList().getTemp()) + "°");
+        sixthHourTemp.setText(Math.round(weatherResult.getList().get(5).getMainList().getTemp()) + "°");
+        seventhHourTemp.setText(Math.round(weatherResult.getList().get(6).getMainList().getTemp()) + "°");
 
 
         dateFormatter.getCurrentTime(dayTextView, monthTextView, timeTextView);
