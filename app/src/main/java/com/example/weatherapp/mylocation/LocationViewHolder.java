@@ -64,6 +64,8 @@ public class LocationViewHolder extends RecyclerView.ViewHolder {
         weatherImages.setImage(weatherImage, weatherResult.getList().get(0).getWeatherList().get(0).getIcon(),context);
         weatherImages.setCardViewBackground(cardView, context, weatherResult.getList().get(0).getWeatherList().get(0).getIcon());
 
+
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

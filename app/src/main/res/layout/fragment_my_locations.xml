@@ -12,20 +12,16 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right"/>
-
             <include layout="@layout/rv_main" />
+
+
+
 
         </LinearLayout>
 

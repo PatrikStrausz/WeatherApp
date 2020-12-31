@@ -1,12 +1,54 @@
 <resources>
     <!-- Reply Preference -->
     <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+        <item>Celsius - °C </item>
+        <item>Fahrenheit - °F</item>
     </string-array>
 
     <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+        <item>celsius</item>
+        <item>fahreinheit</item>
+    </string-array>
+
+    <string-array name="wind_entries">
+        <item>Metres per second - m/s </item>
+        <item>Kilometres per hour - km/h</item>
+        <item>Feet per second - ft/s</item>
+        <item>Miles per hour - mph</item>
+        <item>Knots per second - kts</item>
+    </string-array>
+
+    <string-array name="wind_values">
+        <item>m/s </item>
+        <item>km/h</item>
+        <item>ft/s</item>
+        <item>mph</item>
+        <item>kts</item>
+
+    </string-array>
+
+    <string-array name="visibility_entries">
+        <item>Kilometres - km </item>
+        <item>Miles - mi</item>
+
+    </string-array>
+
+    <string-array name="visibility_values">
+        <item>kilometres/s </item>
+        <item>miles</item>
+
+    </string-array>
+
+
+    <string-array name="pressure_entries">
+        <item>Hectopascal - hPa</item>
+        <item>Inch of mercury - inHg</item>
+
+    </string-array>
+
+    <string-array name="pressure_values">
+        <item>hPa </item>
+        <item>inHg</item>
+
     </string-array>
 </resources>

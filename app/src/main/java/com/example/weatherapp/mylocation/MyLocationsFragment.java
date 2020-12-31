@@ -3,6 +3,7 @@ package com.example.weatherapp.mylocation;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -27,6 +28,7 @@ import com.example.weatherapp.home.HomeAdapter;
 import com.example.weatherapp.weather.City;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +56,6 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
         fab = view.findViewById(R.id.fab);
 
 
-
-
-
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         WeatherViewModel weatherViewModel = provider.get(WeatherViewModel.class);
 
@@ -73,7 +72,7 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDelete(locationAdapter, getContext()));
         itemTouchHelper.attachToRecyclerView(mRepositoryRecyclerView);
 
-//        weatherViewModel.getWeatherByCoordinates();
+
         weatherViewModel.getWeatherList().observe(requireActivity(), new Observer<List<WeatherResult>>() {
 
 
@@ -91,8 +90,14 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
             @Override
             public void onChanged(WeatherResult weatherResult) {
 
-                    weatherResult.setCity_id(weatherResult.getCityObject().getId());
+                int limit = 10;
+                if(locationAdapter.getItemCount() != limit) {
+                    weatherResult.setId(weatherResult.getCityObject().getId());
                     weatherViewModel.insert(weatherResult);
+                }else{
+                    showItemCountExceeded();
+                }
+
             }
         });
 
@@ -106,6 +111,14 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
 
 
         return view;
+    }
+
+    private void showItemCountExceeded() {
+
+        View view = getView().findViewById(R.id.coordinator_layout);
+        Snackbar snackbar = Snackbar.make(view, "Maximum item count reached",
+                Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     private void processFabClick() {
@@ -122,10 +135,10 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
     }
 
     private void openForecastDetail(WeatherResult weatherResult) {
-        Intent intent = new Intent(getActivity(), ForecastDetail.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Response", weatherResult);
-        intent.putExtras(bundle);
+        Intent intent = new Intent(getActivity(), MyLocationDetails.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("Response", weatherResult);
+//        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

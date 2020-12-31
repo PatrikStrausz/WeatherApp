@@ -28,8 +28,9 @@ public interface WeatherDao {
     @Delete
     void deleteResultAndCity(WeatherResult weatherResult,City city);
 
-    @Query("SELECT  * from weather_result")
+    @Query("SELECT * from weather_result ")
     LiveData<List<WeatherResult>> getAllWeatherResults();
+
 
     @Query("DELETE FROM weather_result")
     void deleteAll();

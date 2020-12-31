@@ -76,12 +76,16 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     }
 
+
     @Override
     public int getItemCount() {
 
-        return cachedWeather.size();
+        int limit = 10;
+        return Math.min(cachedWeather.size(), limit);
 
     }
+
+
 
     public void deleteItem(int position) {
         mRecentlyDeletedItem = cachedWeather.get(position);

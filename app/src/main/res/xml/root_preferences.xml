@@ -1,18 +1,38 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="Weather">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
+        <ListPreference
+            app:defaultValue="Celsius - °C"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="temperature"
+            app:title="Temperature"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
+            app:defaultValue="km/h"
+            app:entries="@array/wind_entries"
+            app:entryValues="@array/wind_values"
+            app:key="wind"
+            app:title="Wind"
+            app:useSimpleSummaryProvider="true" />
+
+
+        <ListPreference
+            app:defaultValue="Kilometres - km"
+            app:entries="@array/visibility_entries"
+            app:entryValues="@array/visibility_values"
+            app:key="visibility"
+            app:title="Visibility"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="Hectopascal - hPa"
+            app:entries="@array/pressure_entries"
+            app:entryValues="@array/pressure_values"
+            app:key="pressure"
+            app:title="Pressure"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

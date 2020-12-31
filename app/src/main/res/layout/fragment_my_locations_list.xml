@@ -6,16 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mylocation.MyLocationsFragment">
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="110dp"
         android:layout_margin="8dp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="10dp"
+        android:elevation="10dp"
         android:background="@drawable/widget_snow"
+        app:cardPreventCornerOverlap="true"
         >
+
 
 
         <LinearLayout
@@ -29,12 +33,12 @@
             <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_height="match_parent"
                 android:gravity="center"
 
                 android:text="FRI"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
             <ImageView
                 android:id="@+id/ImageView"
@@ -52,7 +56,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="6"
-                android:textSize="35dp"/>
+                android:textSize="35sp"/>
             <TextView
                 android:id="@+id/minTempTextView"
                 android:layout_marginStart="5dp"
@@ -62,10 +66,10 @@
                 android:textColor="#D3D3D3"
                 android:gravity="left|center"
                 android:text="/-1"
-                android:textSize="25dp"/>
+                android:textSize="25sp"/>
 
             <ImageView
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
