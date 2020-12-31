@@ -1,7 +1,6 @@
 package com.example.weatherapp.forecast;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,30 +13,19 @@ import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherViewModel;
 import com.example.weatherapp.weather.WeatherResult;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
 
     private Context context;
 
     private WeatherResult mAllRepositories;
 
-
-    private List<WeatherResult> weatherResults = new ArrayList<>();
-
-
-
-
     private OnForecastClick listener;
 
-
+    private  WeatherViewModel weatherViewModel;
 
     public void setmAllRepositories(WeatherResult mAllRepositories) {
         this.mAllRepositories = mAllRepositories;
-        weatherResults.add(mAllRepositories);
         notifyDataSetChanged();
-
 
     }
 
@@ -66,13 +54,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ForecastViewHolder holder, int position) {
         holder.bind(mAllRepositories, context);
-        WeatherResult weatherResult = weatherResults.get(position);
-        Log.d("TAG", "s "+weatherResult.getList().get(position).getMainList().getHumidity());
     }
 
     @Override
     public int getItemCount() {
-        Log.d("TAG", "getItemCount: "+weatherResults.size());
-     return   weatherResults.size();
+        if (mAllRepositories == null) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }
