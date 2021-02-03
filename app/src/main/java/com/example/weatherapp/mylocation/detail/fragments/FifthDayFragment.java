@@ -1,17 +1,14 @@
 package com.example.weatherapp.mylocation.detail.fragments;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.weatherapp.DateFormatter;
 import com.example.weatherapp.R;
@@ -27,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TodayFragment extends Fragment {
+public class FifthDayFragment extends Fragment {
 
 
     private TextView humidity;
@@ -79,7 +76,7 @@ public class TodayFragment extends Fragment {
 
     private DateFormatter dateFormatter = new DateFormatter();
 
-    public TodayFragment(WeatherResult weatherResult, int index) {
+    public FifthDayFragment(WeatherResult weatherResult, int index) {
         this.weatherResult = weatherResult;
         this.index = index;
 

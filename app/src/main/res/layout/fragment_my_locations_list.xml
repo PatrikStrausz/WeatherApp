@@ -41,7 +41,7 @@
                 android:gravity="center"
 
                 android:text="FRI"
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
 
             <ImageView
                 android:id="@+id/ImageView"
@@ -69,7 +69,7 @@
                 android:textColor="#D3D3D3"
                 android:gravity="left|center"
                 android:text="/-1"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
 
             <ImageView
                 android:layout_marginStart="5dp"

@@ -11,8 +11,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.weatherapp.DateFormatter;
 import com.example.weatherapp.R;
-import com.example.weatherapp.mylocation.detail.fragments.NextFiveDaysFragment;
+import com.example.weatherapp.mylocation.detail.fragments.FifthDayFragment;
+import com.example.weatherapp.mylocation.detail.fragments.FourthDayFragment;
+import com.example.weatherapp.mylocation.detail.fragments.SecondDayFragment;
+import com.example.weatherapp.mylocation.detail.fragments.SixthDayFragment;
+import com.example.weatherapp.mylocation.detail.fragments.ThirdDayFragment;
 import com.example.weatherapp.mylocation.detail.fragments.TodayFragment;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.material.tabs.TabLayout;
@@ -33,7 +38,14 @@ public class MyLocationDetail extends AppCompatActivity implements Serializable 
     private TabLayout tabLayout;
 
     private TodayFragment todayFragment;
-    private NextFiveDaysFragment nextFiveDaysFragment;
+    private SecondDayFragment secondDayFragment;
+    private ThirdDayFragment thirdDayFragment;
+    private FourthDayFragment fourthDayFragment;
+    private FifthDayFragment fifthDayFragment;
+    private SixthDayFragment sixthDayFragment;
+
+
+    private DateFormatter dateFormatter = new DateFormatter();
 
 
 
@@ -55,13 +67,23 @@ public class MyLocationDetail extends AppCompatActivity implements Serializable 
         tabLayout = findViewById(R.id.tab_layout);
 
         todayFragment = new TodayFragment(weatherResult, index);
-        nextFiveDaysFragment = new NextFiveDaysFragment(weatherResult);
+        secondDayFragment = new SecondDayFragment(weatherResult,index+8);
+        thirdDayFragment = new ThirdDayFragment(weatherResult,index+16);
+        fourthDayFragment = new FourthDayFragment(weatherResult,index+24);
+        fifthDayFragment = new FifthDayFragment(weatherResult,index+32);
+        sixthDayFragment = new SixthDayFragment(weatherResult,index+33);
 
         tabLayout.setupWithViewPager(viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),0);
-        viewPagerAdapter.addFragment(nextFiveDaysFragment,"Next 5 days");
         viewPagerAdapter.addFragment(todayFragment,"Today");
+        viewPagerAdapter.addFragment(secondDayFragment,dateFormatter.getDay(weatherResult.getList().get(8).getDt_txt()));
+        viewPagerAdapter.addFragment(thirdDayFragment,dateFormatter.getDay(weatherResult.getList().get(16).getDt_txt()));
+        viewPagerAdapter.addFragment(fourthDayFragment,dateFormatter.getDay(weatherResult.getList().get(24).getDt_txt()));
+        viewPagerAdapter.addFragment(fifthDayFragment,dateFormatter.getDay(weatherResult.getList().get(32).getDt_txt()));
+        viewPagerAdapter.addFragment(sixthDayFragment,dateFormatter.getDay(weatherResult.getList().get(39).getDt_txt()));
+
+
         viewPager.setAdapter(viewPagerAdapter);
     }
 
