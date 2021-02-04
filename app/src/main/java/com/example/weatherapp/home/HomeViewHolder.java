@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.weatherapp.DateFormatter;
+import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherImages;
 import com.example.weatherapp.weather.WeatherResult;

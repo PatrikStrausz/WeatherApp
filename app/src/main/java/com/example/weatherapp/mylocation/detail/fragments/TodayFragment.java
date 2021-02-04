@@ -1,19 +1,17 @@
 package com.example.weatherapp.mylocation.detail.fragments;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.weatherapp.DateFormatter;
+import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.weather.WeatherResult;
 import com.github.mikephil.charting.charts.LineChart;

@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.weatherapp.DateFormatter;
+import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.mylocation.detail.fragments.FifthDayFragment;
 import com.example.weatherapp.mylocation.detail.fragments.FourthDayFragment;

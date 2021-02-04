@@ -10,12 +10,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.CustomForecastClick;
-import com.example.weatherapp.DateFormatter;
-import com.example.weatherapp.OnForecastClick;
+import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherImages;
-import com.example.weatherapp.WeatherRepository;
-import com.example.weatherapp.weather.WeatherData;
 import com.example.weatherapp.weather.WeatherResult;
 
 public class LocationViewHolder extends RecyclerView.ViewHolder {

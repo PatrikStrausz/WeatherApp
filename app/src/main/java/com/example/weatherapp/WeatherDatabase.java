@@ -9,10 +9,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.weatherapp.converters.Converters;
 import com.example.weatherapp.weather.City;
 import com.example.weatherapp.weather.WeatherResult;
 
-import java.sql.Timestamp;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

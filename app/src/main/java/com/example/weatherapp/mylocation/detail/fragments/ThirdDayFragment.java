@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.weatherapp.DateFormatter;
+import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.weather.WeatherResult;
 import com.github.mikephil.charting.charts.LineChart;

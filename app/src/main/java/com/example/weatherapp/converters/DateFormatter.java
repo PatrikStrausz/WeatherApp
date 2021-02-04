@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.converters;
 
 import android.widget.TextView;
 
@@ -79,6 +79,23 @@ public class DateFormatter {
         dayTextView.setText(strDate1);
         monthTextView.setText(strDate2);
         timeTextView.setText(strDate3);
+    }
+
+
+    public String getWidgetDate(){
+        Date dates = Calendar.getInstance().getTime();
+
+        DateFormat dateFormat1 = new SimpleDateFormat("EEEE, dd MMMM", Locale.ENGLISH);
+
+
+        String strDate1 = dateFormat1.format(dates);
+
+
+
+        return strDate1;
+
+
+
     }
 
 }

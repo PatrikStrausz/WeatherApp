@@ -49,6 +49,8 @@ import java.util.concurrent.Executors;
 public class HomeFragment extends Fragment {
 
     private Location location;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+
 
     private WeatherViewModel weatherViewModel;
 
@@ -59,7 +61,6 @@ public class HomeFragment extends Fragment {
     private static final String PERM = Manifest.permission.ACCESS_FINE_LOCATION;
 
 
-    private FusedLocationProviderClient fusedLocationProviderClient;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -199,15 +200,17 @@ public class HomeFragment extends Fragment {
     }
 
 
+
+
     private void updateLocation() {
 
         if (location == null) {
 
-            LatLng kosice = new LatLng(40.71395, 21.25808);
+            LatLng defaultLocation = new LatLng(40.71395, 21.25808);
 
 
 
-            weatherViewModel.getWeatherByCoordinates(kosice);
+            weatherViewModel.getWeatherByCoordinates(defaultLocation);
 
         } else {
 

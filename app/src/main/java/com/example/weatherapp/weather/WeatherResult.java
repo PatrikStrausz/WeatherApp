@@ -2,13 +2,11 @@ package com.example.weatherapp.weather;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.weatherapp.Converters;
+import com.example.weatherapp.converters.Converters;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

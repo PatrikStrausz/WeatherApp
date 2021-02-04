@@ -7,7 +7,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.weatherapp.Converters;
+import com.example.weatherapp.converters.Converters;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
