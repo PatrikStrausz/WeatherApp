@@ -10,6 +10,7 @@
     android:widgetCategory="home_screen"
     android:previewImage="@drawable/_5x2_port04022021_2017"
 
+
     >
 
 </appwidget-provider>
