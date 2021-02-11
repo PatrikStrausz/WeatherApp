@@ -14,6 +14,7 @@ import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherImages;
 import com.example.weatherapp.weather.WeatherResult;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder {
 
@@ -83,7 +84,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
     private final WeatherImages weatherImages;
 
     private final LinearLayout linearLayout;
-
 
 
     public HomeViewHolder(@NonNull View view) {
@@ -158,6 +158,8 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         fifthHourTemp = view.findViewById(R.id.fifthHourTemp);
         sixthHourTemp = view.findViewById(R.id.sixthHourTemp);
         seventhHourTemp = view.findViewById(R.id.seventhHourTemp);
+
+
     }
 
     @SuppressLint("SetTextI18n")

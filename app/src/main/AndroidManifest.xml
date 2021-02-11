@@ -17,6 +17,9 @@
             android:parentActivityName=".MainActivity"
       />
 
+        <service android:name=".widget.WidgetService"
+           android:permission="android.permission.BIND_JOB_SERVICE"/>
+
         <activity android:name=".mylocation.MyLocationDetail"
             android:parentActivityName=".MainActivity"
             />

@@ -33,12 +33,15 @@ import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherDatabase;
 import com.example.weatherapp.weather.WeatherResult;
 import com.example.weatherapp.WeatherViewModel;
+import com.example.weatherapp.widget.WidgetProvider;
+import com.example.weatherapp.widget.WidgetService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -61,8 +64,6 @@ public class HomeFragment extends Fragment {
     private static final String PERM = Manifest.permission.ACCESS_FINE_LOCATION;
 
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -83,13 +84,18 @@ public class HomeFragment extends Fragment {
         weatherViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
 
-
         weatherViewModel.getRepos().observe(requireActivity(), new Observer<WeatherResult>() {
             @Override
             public void onChanged(WeatherResult weatherResult) {
 
 
                 homeAdapter.setmAllRepositories(weatherResult);
+
+
+                Intent intent = new Intent();
+                intent.putExtra(WidgetService.INTENT_KEY_LOCATION, weatherResult);
+                WidgetService.enqueueWork(getContext(), intent);
+
             }
         });
 
@@ -104,8 +110,6 @@ public class HomeFragment extends Fragment {
         }
 
 
-
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -117,23 +121,20 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
         return view;
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestPermissions() {
-        requestPermissions( new String[]{PERM}, PERMISSION_CODE);
+        requestPermissions(new String[]{PERM}, PERMISSION_CODE);
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean checkPermissions() {
 
-        return requireActivity().checkSelfPermission( PERM) == PackageManager.PERMISSION_GRANTED;
+        return requireActivity().checkSelfPermission(PERM) == PackageManager.PERMISSION_GRANTED;
 
     }
 
@@ -171,7 +172,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
         Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
@@ -188,7 +188,6 @@ public class HomeFragment extends Fragment {
                     updateLocation();
 
 
-
                 }
 
             }
@@ -200,14 +199,11 @@ public class HomeFragment extends Fragment {
     }
 
 
-
-
     private void updateLocation() {
 
         if (location == null) {
 
             LatLng defaultLocation = new LatLng(40.71395, 21.25808);
-
 
 
             weatherViewModel.getWeatherByCoordinates(defaultLocation);

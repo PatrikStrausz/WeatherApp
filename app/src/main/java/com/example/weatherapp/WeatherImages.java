@@ -1,13 +1,14 @@
 package com.example.weatherapp;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.cardview.widget.CardView;
 
 public class WeatherImages {
+
 
     public void setImage(final ImageView imageView, final String value, Context context) {
         switch (value) {
