@@ -2,25 +2,24 @@ package com.example.weatherapp.home;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,23 +29,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.weatherapp.BuildConfig;
 import com.example.weatherapp.R;
-import com.example.weatherapp.WeatherDatabase;
+
 import com.example.weatherapp.weather.WeatherResult;
 import com.example.weatherapp.WeatherViewModel;
-import com.example.weatherapp.widget.WidgetProvider;
 import com.example.weatherapp.widget.WidgetService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 public class HomeFragment extends Fragment {
@@ -58,6 +50,8 @@ public class HomeFragment extends Fragment {
     private WeatherViewModel weatherViewModel;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private NotificationManagerCompat notificationManagerCompat;
 
 
     private static final int PERMISSION_CODE = 33;
@@ -202,14 +196,10 @@ public class HomeFragment extends Fragment {
     private void updateLocation() {
 
         if (location == null) {
-
             LatLng defaultLocation = new LatLng(40.71395, 21.25808);
-
-
             weatherViewModel.getWeatherByCoordinates(defaultLocation);
 
         } else {
-
 
             weatherViewModel.getWeatherByCoordinates(new LatLng(location.getLatitude(), location.getLongitude()));
         }

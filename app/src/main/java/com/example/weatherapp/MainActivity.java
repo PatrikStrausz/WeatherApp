@@ -1,5 +1,7 @@
 package com.example.weatherapp;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -13,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -28,16 +31,10 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
-    private WeatherResult weatherResult;
-
-   private String longitude;
-
-    private String latitude;
-
 
     private BottomNavigationView navView;
 
-    private FusedLocationProviderClient fusedLocationClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.container, fragment1, "1").commit();
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
     }
 
 
@@ -87,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
 
 
 

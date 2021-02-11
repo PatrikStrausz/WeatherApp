@@ -49,16 +49,13 @@ public class WidgetProvider extends AppWidgetProvider {
 
             SharedPreferences prefs = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
 
-            Log.d("SERVICE", "onEnabled: " +prefs.getString("temp","sasasas"));
             views.setTextViewText(R.id.widget_city, prefs.getString("city","city name"));
             views.setTextViewText(R.id.widget_temp, prefs.getString("temp", "temp "));
             views.setTextViewText(R.id.widget_date, dateFormatter.getWidgetDate());
 
 
-
-
             appWidgetManager.updateAppWidget(appWidgetId, views);
-            Log.d("SERVICE", "onUpdate: ");
+
 
 
 
