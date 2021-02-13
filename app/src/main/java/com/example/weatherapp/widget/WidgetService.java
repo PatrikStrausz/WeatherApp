@@ -93,9 +93,6 @@ private WeatherImages weatherImages = new WeatherImages();
                 .setContentText("Current temperature is "+temp)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setSubText("Weather")
-
-
                 .build();
         notificationManager.notify(1, notification);
     }
