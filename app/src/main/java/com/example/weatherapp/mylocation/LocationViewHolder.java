@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherapp.CustomForecastClick;
 import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.R;
-import com.example.weatherapp.WeatherImages;
+import com.example.weatherapp.converters.WeatherImages;
 import com.example.weatherapp.weather.WeatherResult;
 
 public class LocationViewHolder extends RecyclerView.ViewHolder {

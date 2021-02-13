@@ -1,9 +1,11 @@
 package com.example.weatherapp;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.weatherapp.forecast.ForecastFragment;
 import com.example.weatherapp.home.HomeFragment;
@@ -16,9 +18,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import static com.example.weatherapp.notification.WeatherNotification.CHANNEL_1_ID;
 import static com.google.gson.reflect.TypeToken.get;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navView = findViewById(R.id.navigation);
+
+
+
+
+
 
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

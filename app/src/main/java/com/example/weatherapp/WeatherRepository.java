@@ -1,13 +1,21 @@
 package com.example.weatherapp;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.weatherapp.api.APIManager;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -24,8 +32,11 @@ public class WeatherRepository {
     private MutableLiveData<WeatherResult> location = new MutableLiveData<>();
     private Thread mThread;
 
-    private WeatherDao weatherDao;
+    private WeatherViewModel.WeatherDao weatherDao;
     private LiveData<List<WeatherResult>> weatherList;
+
+    private Application application;
+
 
 
     public LiveData<WeatherResult> getRepos() {
@@ -37,7 +48,8 @@ public class WeatherRepository {
     }
 
     WeatherRepository(Application application) {
-        WeatherDatabase database = WeatherDatabase.getDatabase(application);
+        this.application = application;
+        WeatherViewModel.WeatherDatabase database = WeatherViewModel.WeatherDatabase.getDatabase(application);
         weatherDao = database.weatherDao();
 
         weatherList = weatherDao.getAllWeatherResults();
@@ -49,10 +61,8 @@ public class WeatherRepository {
 
 
     void delete(WeatherResult weatherResult) {
-        WeatherDatabase.databaseWriteExecutor.execute(
+        WeatherViewModel.WeatherDatabase.databaseWriteExecutor.execute(
                 () -> {
-//                    weatherDao.deleteWeatherResult(weatherResult);
-//                    weatherDao.deleteCity(weatherResult.getCityObject());
 
                     weatherDao.deleteResultAndCity(weatherResult,weatherResult.getCityObject());
                 }
@@ -60,14 +70,10 @@ public class WeatherRepository {
     }
 
     void insert(WeatherResult weatherResult) {
-        WeatherDatabase.databaseWriteExecutor.execute(
+        WeatherViewModel.WeatherDatabase.databaseWriteExecutor.execute(
                 () -> {
-//                    weatherDao.insert(weatherResult);
-//                    weatherDao.insertCity(weatherResult.getCityObject());
-
                     weatherDao.insertResultAndCity(weatherResult, weatherResult.getCityObject());
 
-//                    weatherDao.insertResultWithCity(new ResultWithCity(weatherResult,weatherResult.getCityObject()));
                 }
         );
     }
@@ -135,13 +141,19 @@ public class WeatherRepository {
                     }
 
                 }
+                else if(response.code() >= 500){
+                    Toast.makeText(application, "Server error, try again. ", Toast.LENGTH_SHORT).show();
+
+                }
             }
 
             @Override
             public void onFailure(Call<WeatherResult> call, Throwable t) {
 
-
                 Log.d("Response", t.getMessage());
+                Toast.makeText(application, "No Internet Connection", Toast.LENGTH_SHORT).show();
+
+
 
 
             }
@@ -171,13 +183,20 @@ public class WeatherRepository {
 
 
                     if (weatherResponse != null) {
-//
+
 
                         location.postValue(weatherResponse);
 
 
                     }
 
+                }
+                else if(response.code() == 404){
+                    Toast.makeText(application, "City \""+cityName+"\" not found ", Toast.LENGTH_SHORT).show();
+
+                }
+                else if(response.code() >= 500){
+                    Toast.makeText(application, "Server error, try again. ", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -187,6 +206,8 @@ public class WeatherRepository {
 
 
                 Log.d("Response", t.getMessage());
+                Toast.makeText(application, "No Internet Connection", Toast.LENGTH_SHORT).show();
+
 
 
             }

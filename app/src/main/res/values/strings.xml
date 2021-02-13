@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Weather</string>
     <string name="title_home">Current</string>
     <string name="title_dashboard">Daily</string>
     <string name="title_notifications">Settings</string>

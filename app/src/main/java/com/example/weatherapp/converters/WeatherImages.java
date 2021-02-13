@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.converters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.cardview.widget.CardView;
+
+import com.example.weatherapp.R;
 
 public class WeatherImages {
 

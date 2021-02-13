@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.mylocation;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,16 +16,18 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.weatherapp.R;
+import com.example.weatherapp.WeatherViewModel;
 import com.example.weatherapp.mylocation.LocationAdapter;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.concurrent.CountDownLatch;
 
-public class DialogFragmentAdd extends DialogFragment {
+public class DialogAddLocation extends DialogFragment {
 
     FragmentActivity activity;
-    public DialogFragmentAdd(FragmentActivity fragmentActivity) {
+    public DialogAddLocation(FragmentActivity fragmentActivity) {
         activity = fragmentActivity;
     }
 

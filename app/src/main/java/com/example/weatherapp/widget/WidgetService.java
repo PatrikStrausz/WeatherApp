@@ -1,25 +1,24 @@
 package com.example.weatherapp.widget;
 
-import android.app.PendingIntent;
+import android.app.Notification;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
-import androidx.lifecycle.Observer;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.WeatherImages;
-import com.example.weatherapp.WeatherViewModel;
+import com.example.weatherapp.converters.WeatherImages;
 import com.example.weatherapp.weather.WeatherResult;
 
-import java.util.Random;
+import static com.example.weatherapp.notification.WeatherNotification.CHANNEL_1_ID;
 
 public class WidgetService extends JobIntentService {
 
@@ -32,11 +31,14 @@ private WeatherImages weatherImages = new WeatherImages();
         enqueueWork(context, WidgetService.class, JOB_ID, work);
     }
 
+    private NotificationManagerCompat notificationManager;
+
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
 
         WeatherResult weatherResult = (WeatherResult) intent.getSerializableExtra(INTENT_KEY_LOCATION);
 
+        notificationManager = NotificationManagerCompat.from(this);
 
         Log.d("SERVICE", ">>>>>>>>>>>" + weatherResult.getCityObject().getName());
         AppWidgetManager appWidgetManager =
@@ -76,7 +78,25 @@ private WeatherImages weatherImages = new WeatherImages();
             editor.apply();
 
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
+
         }
+        sendOnChannel1(weatherResult.getCityObject().getName(), Math.round(weatherResult.getList().get(0).getMainList().getTemp())+"°");
+
         stopSelf();
+    }
+
+    public void sendOnChannel1(String title, String temp) {
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_cloud)
+                .setContentTitle(title)
+                .setContentText("Current temperature is "+temp)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setSubText("Weather")
+
+
+                .build();
+        notificationManager.notify(1, notification);
     }
 }

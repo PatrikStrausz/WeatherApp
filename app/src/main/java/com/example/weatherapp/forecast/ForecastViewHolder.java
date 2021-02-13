@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherapp.converters.DateFormatter;
 import com.example.weatherapp.OnForecastClick;
 import com.example.weatherapp.R;
-import com.example.weatherapp.WeatherImages;
+import com.example.weatherapp.converters.WeatherImages;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.material.card.MaterialCardView;
 

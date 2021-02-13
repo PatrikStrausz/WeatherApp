@@ -3,7 +3,6 @@ package com.example.weatherapp.mylocation;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -12,25 +11,19 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.weatherapp.CustomForecastClick;
-import com.example.weatherapp.DialogFragmentAdd;
 import com.example.weatherapp.R;
 import com.example.weatherapp.SwipeToDelete;
 import com.example.weatherapp.WeatherViewModel;
-import com.example.weatherapp.forecast.ForecastDetail;
-import com.example.weatherapp.home.HomeAdapter;
 
-import com.example.weatherapp.weather.City;
 import com.example.weatherapp.weather.WeatherResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -123,7 +116,7 @@ public class MyLocationsFragment extends Fragment implements CustomForecastClick
 
     private void processFabClick() {
 
-        DialogFragment dialogFragment = new DialogFragmentAdd(requireActivity());
+        DialogFragment dialogFragment = new DialogAddLocation(requireActivity());
         dialogFragment.show(getChildFragmentManager(), "insert");
 
 
