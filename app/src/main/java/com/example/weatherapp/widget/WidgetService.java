@@ -1,11 +1,14 @@
 package com.example.weatherapp.widget;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -14,6 +17,7 @@ import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.weatherapp.MainActivity;
 import com.example.weatherapp.R;
 import com.example.weatherapp.converters.WeatherImages;
 import com.example.weatherapp.weather.WeatherResult;
@@ -80,20 +84,33 @@ private WeatherImages weatherImages = new WeatherImages();
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
         }
-        sendOnChannel1(weatherResult.getCityObject().getName(), Math.round(weatherResult.getList().get(0).getMainList().getTemp())+"°");
+        sendOnChannel1(weatherResult.getCityObject().getName(),
+                Math.round(weatherResult.getList().get(0).getMainList().getTemp())+"°",
+                Math.round(weatherResult.getList().get(0).getMainList().getTemp_min())+"°"
+                );
 
         stopSelf();
     }
 
-    public void sendOnChannel1(String title, String temp) {
+    public void sendOnChannel1(String title, String temp,String temp2) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_cloud)
-                .setContentTitle(title)
-                .setContentText("Current temperature is "+temp)
+                .setContentTitle(title +" "+temp+"/"+ temp2)
+                .setContentText("Click to learn more")
+                .setColorized(true)
+                .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setContentIntent(pendingIntent)
                 .build();
+
+
+
+
         notificationManager.notify(1, notification);
     }
 }
