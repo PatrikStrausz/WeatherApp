@@ -2,8 +2,11 @@ package com.example.weatherapp;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -23,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import static com.example.weatherapp.notification.WeatherNotification.CHANNEL_1_ID;
+import static com.example.weatherapp.widget.WidgetService.INTENT_KEY_LOCATION;
 import static com.google.gson.reflect.TypeToken.get;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,10 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navView = findViewById(R.id.navigation);
-
-
-
-
+        
 
 
 
@@ -92,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
 
 
 
